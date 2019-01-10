@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Alastair Fraser</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Alastair Fraser</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +1100</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Australian and Canadian Greenhouse Gas Emissions</title>
+      <link>/post/aucdn_ghgbreakdown/cdnau_ghgbreakdown_v2/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/aucdn_ghgbreakdown/cdnau_ghgbreakdown_v2/</guid>
+      <description>The conversation around greenhouse gas emissions in Australia differs from that in Canada. In Australia there is much attention on coal generation and renewable energy, where as in Canada the focus is on oil and gas, and in particular the oil sands and export pipelines. To get a sense of each countries emissions I’ll break down and compare the sources.
+Here’s Australia’s and Canada’s emissions since 1990. The importance of energy emissions, and the growth in them since 1990, is clear.</description>
+    </item>
+    
+    <item>
+      <title>Australian and Canadian missed climate targets</title>
+      <link>/post/aucdn_targets/canaughgs_blog_v2/</link>
+      <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/aucdn_targets/canaughgs_blog_v2/</guid>
+      <description>We hear a lot about plans to reduce greenhouse gas emissions, yet comparably little about how we’ve lived up to past commitments. It’s worth taking a look at our past (in)actions and goals as they’re important context in which to view current progress.
+It’s not an optimistic picture. Without a change in direction the Paris target is well on track to joining past failed targets, with voters and politicians again kicking the climate can down the road as a problem for future generations to pay the growing costs of.</description>
+    </item>
+    
+  </channel>
+</rss>
