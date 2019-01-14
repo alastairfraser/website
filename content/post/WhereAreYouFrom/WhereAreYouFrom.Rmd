@@ -1,0 +1,433 @@
+---
+title: "Where are you from?"
+output:
+  html_document:
+    df_print: paged
+    fig_width: 7
+    fig_height: 5
+
+editor_options: 
+  chunk_output_type: inline
+
+date: 2019-01-14T00:00:00
+lastmod: 2019-01-14T00:00:00
+
+---
+
+```{r setup,include=FALSE}
+knitr::opts_chunk$set(echo=FALSE,include=FALSE)
+#knitr::opts_knit$set(root.dir = normalizePath(".."))
+
+library(readr)
+library(tidyr)
+library(dplyr)
+library(reshape2)
+library(readxl)
+library(ggrepel)
+library(knitr)
+library("RColorBrewer")
+library(ggplot2)
+library(stringr)
+library('scales') # for the percent function
+rm(list=ls())
+# Function for plotting colors side-by-side
+pal <- function(col, border = "light gray", ...){
+  n <- length(col)
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1),
+       axes = FALSE, xlab = "", ylab = "", ...)
+  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
+}
+
+```
+
+
+```{r}
+#import country crosswalk. This file was edited manually to get a roughly consistent list of countries since the first AU census. 
+AU_CrosswalkRaw <- read_excel("Data/Australia/3105065001ds0008_2014_crosswalk.xlsx",sheet = "CrosswalkRaw",range = "A7:Q340")
+
+#reshape crosswalk
+AU_CrosswalkRaw <- gather(AU_CrosswalkRaw,key=year,value=CensusCountry)
+AU_CrosswalkRaw <- filter(AU_CrosswalkRaw,!is.na(AU_CrosswalkRaw$CensusCountry))
+AU_CrosswalkRaw <- select(AU_CrosswalkRaw,-year)
+
+AU_CrosswalkRaw <- AU_CrosswalkRaw[!duplicated(AU_CrosswalkRaw),]
+anyDuplicated(AU_CrosswalkRaw)
+
+AU_CrosswalkRaw <- AU_CrosswalkRaw[order(AU_CrosswalkRaw$CensusCountry),]
+AU_CrosswalkRaw <- AU_CrosswalkRaw[-(1:9),]
+
+#export to excel to edit country list there
+#write.csv(AU_CrosswalkRaw,file="Data/Australia/CensusCountryList.csv")
+
+#import edited crosswalk
+AU_Crosswalk <- read_excel("Data/Australia/CensusCountryList_Crosswalk.xlsx")
+AU_Crosswalk <- select(AU_Crosswalk,-X__1)
+AU_Crosswalk <- rename(AU_Crosswalk,MasterCountry=MasterCountry_1)
+
+#assign "Other" to the list of countries, but excluding the totals
+AU_Crosswalk$MasterCountry[is.na(AU_Crosswalk$MasterCountry)] <- "Undefined"
+AU_Crosswalk$Region[is.na(AU_Crosswalk$Region)] <- "Undefined"
+
+#Crosswalk is ready to merge into CensusData
+```
+
+```{r}
+# Import Australian census data
+AU_FullCensusData <- NULL
+
+year <- "1901"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.7",range = "A5:AF95")
+temp <- select(temp,"X__1","X__24")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1911"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.8",range = "A5:AJ237")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1921"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.9",range = "A5:AJ123")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1933"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.10",range = "A5:AJ124")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1947"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.11",range = "A5:AJ125")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1954"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.12",range = "A5:AJ98")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1961"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.13",range = "A5:AJ100")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1966"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.14",range = "A5:AJ100")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1971"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.15",range = "A5:AJ108")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1976"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.16",range = "A5:AJ112")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1981"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.17",range = "A5:AJ119")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1986"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.18",range = "A5:AJ125")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1991"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.19",range = "A5:AJ239")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "1996"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.20",range = "A5:AJ263")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "2001"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.21",range = "A5:AJ255")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "2006"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.22",range = "A5:AJ330")
+temp <- select(temp,"X__1","X__27")
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+
+year <- "2011"
+temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.23",range = "A5:AB339")
+temp <- temp %>% select("X__1","X__19") %>% filter(!is.na(temp$"X__1"))
+temp$X__19 <- as.numeric(temp$X__19)
+names(temp) <- c("CensusCountry","ppl")
+temp$CensusYear <- year
+AU_FullCensusData <- rbind(AU_FullCensusData,temp)
+```
+
+```{r}
+#Simplify AUCensusData
+AUCensusData <- AU_FullCensusData %>% filter(!is.na(CensusCountry)) %>% filter(!is.na(ppl))
+AUCensusData$CensusYear <- as.numeric(AUCensusData$CensusYear)
+AUCensusData$ppl <- as.numeric(AUCensusData$ppl)
+
+#Merge the master country names. Keep all rows.
+AUCensusData <- left_join(AUCensusData,AU_Crosswalk,by=c("CensusCountry"))
+
+#remove the REMOVE regions of Australia (States & regions of the Commonwealth)
+AUCensusData <- filter(AUCensusData,MasterCountry!="REMOVE")
+
+#verify that totals add up
+temp <- aggregate(ppl~CensusYear,data=subset(AUCensusData,MasterCountry!="Total"),FUN=sum)
+temp <- rename(temp,observed_total=ppl)
+
+#compare to totals
+temp <- inner_join(temp,subset(AUCensusData,MasterCountry=="Total"),by="CensusYear")
+temp <- mutate(temp,diff=(observed_total-ppl)/ppl)
+#Appears totals are off by up to 5 percent only.
+temp <- select(temp,CensusYear,observed_total)
+
+#merge back in observed_total
+AUCensusData <- left_join(AUCensusData,temp)
+
+#order by CensusYear
+AUCensusData <- AUCensusData[order(AUCensusData$CensusYear,AUCensusData$MasterCountry),]
+
+#generate number of total immigrants
+temp <- AUCensusData %>% filter(MasterCountry %in% c("Australia")) %>% mutate(immigrants=observed_total-ppl) %>% select(CensusYear,immigrants)
+AUCensusData <- left_join(AUCensusData,temp)
+
+#generate shares for plotting
+AUCensusData <- mutate(AUCensusData,immig_share=ppl/immigrants)
+AUCensusData$immig_share <- round(AUCensusData$immig_share,digits=4)
+
+AUCensusData <- mutate(AUCensusData,share=ppl/observed_total)
+AUCensusData$share <- round(AUCensusData$share,digits=4)
+
+#test that shares add up to 100?
+temp <- aggregate(share~CensusYear,data=subset(AUCensusData,MasterCountry!="Total"),FUN=sum)
+#yes (or close, due to rounding)
+temp <- aggregate(immig_share~CensusYear,data=subset(AUCensusData,!(MasterCountry %in% c("Total","Australia"))),FUN=sum)
+#yes
+#aggregate across regions
+
+#what countries are large in 2011 with "Undefined"
+AUCensusData %>% filter(MasterCountry=="Undefined" & CensusYear==2011) %>% group_by(CensusCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+#can see no single country jumps out. 
+
+#check Undefined over all years
+AUCensusData %>% filter(MasterCountry=="Undefined") %>% group_by(CensusCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+
+```
+
+```{r}
+#Define list of countries, chosen from MasterCountry, to plot
+#ctry_list <- c("New Zealand","China","England","Scotland","Canada","Australia","Hong Kong","Italy","Germany","France","Korea","USA","Other","Vietnam","Philippines","South Africa","Poland","Wales")
+
+#choose the X (eg, 30) largest countries by immigration share.
+ctry_list <- AUCensusData %>% group_by(MasterCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+ctry_list <- ctry_list[-1,]
+ctry_list <- ctry_list$MasterCountry[1:31] #top X countries of immigrants
+
+AUCensusData_plot <- AUCensusData
+
+#copy MasterCountry to plot_ctry if MasterCountry is in ctry_list
+AUCensusData_plot$plot_ctry <- NA
+AUCensusData_plot <- mutate(AUCensusData_plot,plot_ctry=case_when((MasterCountry %in% ctry_list | MasterCountry=="Total") ~ MasterCountry))
+
+#define Other category for all other countries
+AUCensusData_plot$plot_ctry[is.na(AUCensusData_plot$plot_ctry)] <- "Other"
+#define "Other" for "Undefined"
+AUCensusData_plot$plot_ctry[AUCensusData_plot$plot_ctry=="Undefined"] <- "Other"
+
+#what countries have the largest share of immigrants but are within plot_ctry=="Other", i.e. are outside the top X countries?
+AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+#Undefined is a *large* share... why? What are these people? 
+
+#View(AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl))
+
+#aggregate to get ctry-year shares
+AUCensusData_plot <- AUCensusData_plot %>% select(plot_ctry,CensusYear,share,immig_share,ppl)
+AUCensusData_plot <- aggregate(cbind(share,immig_share,ppl)~plot_ctry+CensusYear,data=AUCensusData_plot,FUN=sum)
+AUCensusData_plot <- rename(AUCensusData_plot,country=plot_ctry,year=CensusYear)
+
+#Expand data; this sets there to be zeros for Yugoslavia before and after it exists as a country, which makes graph look nicer than missing data but has no impact on shares.
+#View(expand(AUCensusData_plot,country,year))
+temp <- expand(AUCensusData_plot,country,year)
+AUCensusData_plot <- left_join(temp,AUCensusData_plot,by=c("country","year"))
+AUCensusData_plot[is.na(AUCensusData_plot)] <- 0
+
+```
+
+One of the things that jumped out at me when I arrived in Australia was, compared to Canada, how European it feels. The coffee, the more rounded edges on cars, the cafe's with seating on the street, tea, trains. Based on my colleagues at work and people I meet here, Sydney also appears to have more people recently arrived from Europe. Vancouver feels relatively U.S. and Asia focused. So I decided to take a peek at some data.
+
+Fortunately, Australia provides a handy summary [(data product 3105.0.65.001)](http://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/3105.0.65.0012014?OpenDocument) of Country of Birth of the population.
+
+Here's what the 30 largest country of birth shares (ranked as of 2011) look like. You can think of this as showing how likely it was that, in a given year, a random person you meet on the Australian street would be from the given country.
+
+
+```{r,include=TRUE}
+#plot the X largest countries, ordered by their current share. Use country as a factor. 
+
+
+factororder <- AUCensusData_plot %>% filter(year==2011) %>% group_by(country) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+
+#factororder <- AUCensusData_plot %>% group_by(country) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+factororder <- factororder$country[-1]
+
+ggplot(subset(AUCensusData_plot,country!="Total" & country!="Australia"),aes(x=year,y=share,fill = factor(country,levels=factororder))) + geom_area() + theme_bw() + guides(fill=guide_legend("Region of birth")) +
+  xlab(NULL) + scale_y_continuous(breaks=seq(0,0.25,0.05),name="Share of Australian population",labels = scales::percent_format(accuracy = 1))
+
+
+```
+
+What's striking is the change around 1950, as Australia embarked on a large [post-war increase in immigration.](https://en.wikipedia.org/wiki/Post-war_immigration_to_Australia) Before that, relatively low immigration led to a rising share of people in Australia having been born there.
+
+An alternative way to visualize the contributions from different countries is to plot country of birth as a share of those born abroad. 
+
+```{r,include=TRUE}
+#AU country of birth as share of foreign born
+ggplot(subset(AUCensusData_plot,country!="Total" & country!="Australia",select=-share),aes(x=year,y=immig_share,fill = factor(country,levels=factororder))) + geom_area() + theme_bw() + guides(fill=guide_legend("Region of birth")) +
+  xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1))
+
+```
+
+For much of Australia\'s history, the significant majority of those foreign-born have been from the United Kingdom and Ireland. This speaks in part to the impact of the [White Australia policy](https://en.wikipedia.org/wiki/White_Australia_policy). 
+
+Times have thankfully changed, and Australia is increasingly multicultural. As of 2011 the largest share of foreign-born people is *Other*, which is all the countries outside the largest 30. The rise of multiculturalism can also be seen in the post-war increasing share of countries of origin outside the UK and Ireland, like Italy, Germany, Greece, and the Netherlands, and more recently India, China, Vietnam and the Philippines. 
+
+```{r}
+#Plot immig share without England and Other, to better see individual countries.
+ggplot(subset(AUCensusData_plot,country!="Total" & country!="Australia" & country!="England & Wales" & country!="Other",select=-share),aes(x=year,y=immig_share,fill = country)) + geom_area() + theme_bw()
+```
+
+Here's another way to look at where people one might meet on the street are from; large regions of the world.
+
+```{r,include=TRUE}
+#Define list of regions to plot
+region_list <- c("South America","Asia","North America","UK & Ireland","Europe","New Zealand","Africa","Middle East","Central America","Total")
+
+AUCensusData_plot <- AUCensusData
+
+#copy Region to plot_region if Region is in region_list
+AUCensusData_plot <- mutate(AUCensusData_plot,plot_region=case_when(Region %in% region_list ~ Region))
+#assign Australia its own name, and Canada to NA
+AUCensusData_plot$plot_region[AUCensusData_plot$Region=="Canada"] <- "North America"
+AUCensusData_plot$plot_region[AUCensusData_plot$Region=="Australia"] <- "Australia"
+#assign Other to all others
+AUCensusData_plot$plot_region[is.na(AUCensusData_plot$plot_region)] <- "Other"
+
+#aggregate to get ctry-year shares. Separate data frames for immig and share of total
+AUCensusData_plot <- AUCensusData_plot %>% select(plot_region,CensusYear,share,immig_share)
+AUCensusData_plot <- aggregate(cbind(share,immig_share)~plot_region+CensusYear,data=AUCensusData_plot,FUN=sum)
+AUCensusData_plot <- rename(AUCensusData_plot,region=plot_region,year=CensusYear)
+
+#try plotting immig_share as geom_area
+factororder <- AUCensusData_plot %>% filter(year==2011) %>% arrange(-immig_share)
+factororder <- factororder$region[-(1:2)]
+
+ggplot(subset(AUCensusData_plot,region!="Total" & region!="Australia",select=-share),aes(x=year,y=immig_share,fill = factor(region,levels=factororder))) + geom_area() + theme_bw() + guides(fill=guide_legend("Region of birth")) +
+  xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1))
+
+```
+
+```{r}
+#2011 bar chart version to compare to Canada
+AUCensusData_barchart <- AUCensusData_plot %>% filter(year==2011) %>% select(-year)
+
+#how to display this? pie chart? bar chart?
+AU_bar <- ggplot(subset(AUCensusData_barchart,region!="Total" & region!="Australia"),aes(x="",y=immig_share,fill=region)) + geom_bar(width=1,stat="identity")
+#plot(AU_bar)
+
+```
+
+```{r}
+CDN_Data <- read_csv("Data/Canada/edited_98-402-X2016007-21.csv",col_name=TRUE,n_max=248)
+#AUCensusData_plot$plot_region[AUCensusData_plot$region=="Australia"] <- "Asia"
+#keep first two coluns
+CDN_Data <- CDN_Data[,1:2]
+names(CDN_Data) <- c("CensusCountry","ppl")
+
+#export to create the Crosswalk
+write.csv(CDN_Data,file="Data/Canada/CDN_Data.csv")
+#merge in list of countries to be used
+
+#import CDN_Crosswalk
+CDN_Crosswalk <- read_excel("Data/Canada/CDN_Crosswalk.xlsx")
+unique(CDN_Crosswalk$region)
+
+CDN_Data <- CDN_Crosswalk %>% select(-X__1,-MasterCountry)
+
+#assign Other to all others
+CDN_Data$region[is.na(CDN_Data$region)] <- "Other"
+
+#shares. 7,540,830 is immigrant population, 36.26 million is total population
+CDN_Data$share <- CDN_Data$ppl/(36.26e6)
+CDN_Data$share <- round(CDN_Data$share,digits=4)
+
+CDN_Data$immig_share <- CDN_Data$ppl/(7.54e6)
+CDN_Data$immig_share <- round(CDN_Data$immig_share,digits=4)
+
+#check totals
+sum(CDN_Data$share[CDN_Data$region!="Total"])
+sum(CDN_Data$immig_share[CDN_Data$region!="Total"])
+
+#aggregate to regions
+CDN_Data <- select(CDN_Data,region,share,immig_share)
+CDN_Data <- aggregate(cbind(share,immig_share)~region,data = CDN_Data,FUN=sum)
+                      
+#how to display this? pie chart? bar chart?
+CDN_bar <- ggplot(subset(CDN_Data,region!="Total"),aes(x="",y=immig_share,fill=region)) + geom_bar(width=1,stat="identity") + xlab("2011")
+
+```
+
+So how does Canada compare? Unfortunately, Statistics Canada didn't appear to provide any similar summary of country of birth over time. Instead, here's a comparison of how Australia and Canada stand today. 
+
+```{r,include=TRUE}
+#using facet grid
+both_data <- AUCensusData_barchart %>% mutate(cty="Australia")
+CDN_Data <- CDN_Data %>% mutate(cty="Canada")
+both_data <- rbind(CDN_Data,both_data)
+
+ggplot(subset(both_data,region!="Total" & region!="Australia"),aes(x="",y=immig_share,fill=factor(region,levels=factororder))) + geom_bar(width=1,stat="identity") + facet_grid(cols=vars(cty),labeller = as_labeller(c("Australia"="Australia (2011)","Canada"="Canada (2016)"))) + guides(fill=guide_legend("Region of birth")) + xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1))
+
+
+
+```
+
+Most noticeable is that a larger share of Canada's foreign born population is from Asia, compared to Australia with its larger share from the UK & Ireland. Fitting with Canada being one of the most [culturally diverse countries](http://www.pewresearch.org/fact-tank/2013/07/18/the-most-and-least-culturally-diverse-countries-in-the-world/), it also has larger shares from Africa, Central America, the Middle East, and South America.
+
+However, this hides an important (and probably surprising to many Canadians?) fact: Australia now has [a much higher share of foreign born residents](https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_by_immigrant_population) (33%) than Canada (23%). 
+
+So compared to Canada, in Australia the answer to "where are you from?" is less likely to be "from here", and more likely to be "from Europe."

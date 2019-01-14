@@ -1,0 +1,34 @@
+---
+title: "Where are you from?"
+output:
+  html_document:
+    df_print: paged
+    fig_width: 7
+    fig_height: 5
+
+editor_options: 
+  chunk_output_type: inline
+
+date: 2019-01-14T00:00:00
+lastmod: 2019-01-14T00:00:00
+
+---
+
+
+
+<p>One of the things that jumped out at me when I arrived in Australia was, compared to Canada, how European it feels. The coffee, the more rounded edges on cars, the cafe’s with seating on the street, tea, trains. Based on my colleagues at work and people I meet here, Sydney also appears to have more people recently arrived from Europe. Vancouver feels relatively U.S. and Asia focused. So I decided to take a peek at some data.</p>
+<p>Fortunately, Australia provides a handy summary <a href="http://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/3105.0.65.0012014?OpenDocument">(data product 3105.0.65.001)</a> of Country of Birth of the population.</p>
+<p>Here’s what the 30 largest country of birth shares (ranked as of 2011) look like. You can think of this as showing how likely it was that, in a given year, a random person you meet on the Australian street would be from the given country.</p>
+<p><img src="/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>What’s striking is the change around 1950, as Australia embarked on a large <a href="https://en.wikipedia.org/wiki/Post-war_immigration_to_Australia">post-war increase in immigration.</a> Before that, relatively low immigration led to a rising share of people in Australia having been born there.</p>
+<p>An alternative way to visualize the contributions from different countries is to plot country of birth as a share of those born abroad.</p>
+<p><img src="/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>For much of Australia's history, the significant majority of those foreign-born have been from the United Kingdom and Ireland. This speaks in part to the impact of the <a href="https://en.wikipedia.org/wiki/White_Australia_policy">White Australia policy</a>.</p>
+<p>Times have thankfully changed, and Australia is increasingly multicultural. As of 2011 the largest share of foreign-born people is <em>Other</em>, which is all the countries outside the largest 30. The rise of multiculturalism can also be seen in the post-war increasing share of countries of origin outside the UK and Ireland, like Italy, Germany, Greece, and the Netherlands, and more recently India, China, Vietnam and the Philippines.</p>
+<p>Here’s another way to look at where people one might meet on the street are from; large regions of the world.</p>
+<p><img src="/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>So how does Canada compare? Unfortunately, Statistics Canada didn’t appear to provide any similar summary of country of birth over time. Instead, here’s a comparison of how Australia and Canada stand today.</p>
+<p><img src="/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Most noticeable is that a larger share of Canada’s foreign born population is from Asia, compared to Australia with its larger share from the UK &amp; Ireland. Fitting with Canada being one of the most <a href="http://www.pewresearch.org/fact-tank/2013/07/18/the-most-and-least-culturally-diverse-countries-in-the-world/">culturally diverse countries</a>, it also has larger shares from Africa, Central America, the Middle East, and South America.</p>
+<p>However, this hides an important (and probably surprising to many Canadians?) fact: Australia now has <a href="https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_by_immigrant_population">a much higher share of foreign born residents</a> (33%) than Canada (23%).</p>
+<p>So compared to Canada, in Australia the answer to “where are you from?” is less likely to be “from here”, and more likely to be “from Europe.”</p>
