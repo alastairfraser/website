@@ -3,9 +3,15 @@ title: "Where are you from?"
 output:
   html_document:
     df_print: paged
-  pdf_document: default
+    fig_width: 7
+    fig_height: 5
+
 editor_options: 
   chunk_output_type: inline
+
+date: 2019-01-14T00:00:00
+lastmod: 2019-01-14T00:00:00
+
 ---
 
 ```{r setup,include=FALSE}
