@@ -14,14 +14,13 @@ image = ""
 caption = ""
 +++
 
-Students: I have two empirical projects currently available if you are looking to get research experience, or for an honours project topic. The first is a replication and then extension of a paper on how changes in competition affected air transport costs. The second is on modeling low-carbon investment portfolios. I expect both to lead to a publication. I'm also happy to chat about research ideas of your own. If you're interested, please get in touch.
-
 ***
 
 ## Works in progress
 
-  * Alastair Fraser "Financial Incentives or Persistent Habits? How Households Respond to Financial Rewards for Electricity Conservation." Working paper.
-  * Alastair Fraser "Complements or Substitutes? The Importance of Mode Choice In International Trade." Working paper.
+  * Financial Incentives or Persistent Habits? How Households Respond to Financial Rewards for Electricity Conservation. Working paper. Solo-authored.
+  * Complements or Substitutes? The Importance of Mode Choice In International Trade. Working paper. Solo-authored.
+  * Trade-offs in investment carbon footprints. Solo-authored.
 
 ***
 
