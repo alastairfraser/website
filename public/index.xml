@@ -12,26 +12,26 @@
     
     <item>
       <title>Where are you from?</title>
-      <link>/post/whereareyoufrom/immigration_v5/</link>
+      <link>/post/whereareyoufrom/whereareyoufrom/</link>
       <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/whereareyoufrom/immigration_v5/</guid>
+      <guid>/post/whereareyoufrom/whereareyoufrom/</guid>
       <description>
 
 
 &lt;p&gt;One of the things that jumped out at me when I arrived in Australia was, compared to Canada, how European it feels. The coffee, the more rounded edges on cars, the cafe’s with seating on the street, tea, trains. Based on my colleagues at work and people I meet here, Sydney also appears to have more people recently arrived from Europe. Vancouver feels relatively U.S. and Asia focused. So I decided to take a peek at some data.&lt;/p&gt;
 &lt;p&gt;Fortunately, Australia provides a handy summary &lt;a href=&#34;http://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/3105.0.65.0012014?OpenDocument&#34;&gt;(data product 3105.0.65.001)&lt;/a&gt; of Country of Birth of the population.&lt;/p&gt;
 &lt;p&gt;Here’s what the 30 largest country of birth shares (ranked as of 2011) look like. You can think of this as showing how likely it was that, in a given year, a random person you meet on the Australian street would be from the given country.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/Immigration_v5_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;What’s striking is the change around 1950, as Australia embarked on a large &lt;a href=&#34;https://en.wikipedia.org/wiki/Post-war_immigration_to_Australia&#34;&gt;post-war increase in immigration.&lt;/a&gt; Before that, relatively low immigration led to a rising share of people in Australia having been born there.&lt;/p&gt;
 &lt;p&gt;An alternative way to visualize the contributions from different countries is to plot country of birth as a share of those born abroad.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/Immigration_v5_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;For much of Australia&#39;s history, the significant majority of those foreign-born have been from the United Kingdom and Ireland. This speaks in part to the impact of the &lt;a href=&#34;https://en.wikipedia.org/wiki/White_Australia_policy&#34;&gt;White Australia policy&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Times have thankfully changed, and Australia is increasingly multicultural. As of 2011 the largest share of foreign-born people is &lt;em&gt;Other&lt;/em&gt;, which is all the countries outside the largest 30. The rise of multiculturalism can also be seen in the post-war increasing share of countries of origin outside the UK and Ireland, like Italy, Germany, Greece, and the Netherlands, and more recently India, China, Vietnam and the Philippines.&lt;/p&gt;
 &lt;p&gt;Here’s another way to look at where people one might meet on the street are from; large regions of the world.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/Immigration_v5_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;So how does Canada compare? Unfortunately, Statistics Canada didn’t appear to provide any similar summary of country of birth over time. Instead, here’s a comparison of how Australia and Canada stand today.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/Immigration_v5_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Most noticeable is that a larger share of Canada’s foreign born population is from Asia, compared to Australia with its larger share from the UK &amp;amp; Ireland. Fitting with Canada being one of the most &lt;a href=&#34;http://www.pewresearch.org/fact-tank/2013/07/18/the-most-and-least-culturally-diverse-countries-in-the-world/&#34;&gt;culturally diverse countries&lt;/a&gt;, it also has larger shares from Africa, Central America, the Middle East, and South America.&lt;/p&gt;
 &lt;p&gt;However, this hides an important (and probably surprising to many Canadians?) fact: Australia now has &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_by_immigrant_population&#34;&gt;a much higher share of foreign born residents&lt;/a&gt; (33%) than Canada (23%).&lt;/p&gt;
 &lt;p&gt;So compared to Canada, in Australia the answer to “where are you from?” is less likely to be “from here”, and more likely to be “from Europe.”&lt;/p&gt;
@@ -40,35 +40,35 @@
     
     <item>
       <title>Australian and Canadian Greenhouse Gas Emissions</title>
-      <link>/post/emission_sources/cdnau_ghgbreakdown_v2/</link>
+      <link>/post/emission_sources/emission_sources/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/emission_sources/cdnau_ghgbreakdown_v2/</guid>
+      <guid>/post/emission_sources/emission_sources/</guid>
       <description>
 
 
 &lt;p&gt;The conversation around greenhouse gas emissions in Australia differs from that in Canada. In Australia there is much attention on coal generation and renewable energy, where as in Canada the focus is on oil and gas, and in particular the oil sands and export pipelines. To get a sense of where emissions come from in each country this post breaks down and compares emission sources.&lt;/p&gt;
 &lt;p&gt;Here’s Australia’s and Canada’s emissions since 1990. The importance of energy emissions, and the growth in them since 1990, is clear. &lt;em&gt;Energy&lt;/em&gt; is primarily the burning of fossil fuels for electricity, heat, and transportation. &lt;em&gt;Agriculture&lt;/em&gt; includes emissions like methane, but not energy used in farm tractors, to heat greenhouses, etc. &lt;em&gt;Industrial proceses&lt;/em&gt; are &lt;em&gt;Waste&lt;/em&gt; emissions come directly from sources like cement or landfills, but like agriculture do not include associated fossil fuel use. &lt;em&gt;LULUCF&lt;/em&gt; is land use, land-use change, and forestry.&lt;/p&gt;
 &lt;p&gt;Data for Canada comes from the &lt;a href=&#34;http://data.ec.gc.ca/data/substances/monitor/national-and-provincial-territorial-greenhouse-gas-emission-tables/&#34;&gt;2018 National Inventory Report&lt;/a&gt;, and for Australia from the &lt;a href=&#34;http://ageis.climatechange.gov.au/NGGI.aspx&#34;&gt;National Greenhouse Gas Inventory via AGEIS&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/CDNAU_GHGBreakdown_v2_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/Emission_Sources_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Emissions within the &lt;em&gt;Energy&lt;/em&gt; category come from a variety of sources. I’ve plotted these emissions below, ordered largest to smallest by Australia’s 2016 emissions. Electricity and other fossil fuel related emissions are red-orange, and transportation emissions are in blue.&lt;/p&gt;
 &lt;p&gt;In Australia, electricity generation is the largest source of emissions owing to the widespread use of coal. The importance of coal industry is further evidence in fugitive emissions from coal mining being Australia’s 4th largest emissions source. Canada, with its relatively clean electricity emissions from legacy hydro power, has road transport as the largest source. While fugitive coal emissions are negligible in Canada, the importance of oil and gas can be seen through the large fossil fuel extraction and fugitive oil and gas emissions.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/CDNAU_GHGBreakdown_v2_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/Emission_Sources_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div id=&#34;provincial-state-emissions&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Provincial &amp;amp; State emissions&lt;/h4&gt;
 &lt;p&gt;Emission sources differ substantially across Australia and Canada. Below, I plot all emissions excluding LULUCF by province/state, emission category, and year. I’ve separated &lt;em&gt;Energy&lt;/em&gt; into electricity, transport, fossil fuel extraction activities, buildings, and manufacturing sources. For Canada, Alberta jumps out for both its high emissions and large share from the oil and gas industry. The importance of hydro power to BC and Quebec is clear in the lack of emissions from electricity generation. Emissions across Australian states are relatively uniform compared to Canada, though with South Australia and Western Australia having a smaller share from electricity generation.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/CDNAU_GHGBreakdown_v2_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/CDNAU_GHGBreakdown_v2_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/Emission_Sources_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Emission_sources/Emission_Sources_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
     
     <item>
       <title>Australian and Canadian missed climate targets</title>
-      <link>/post/climate_targets/canaughgs_blog_v3/</link>
+      <link>/post/climate_targets/climate_targets/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/climate_targets/canaughgs_blog_v3/</guid>
+      <guid>/post/climate_targets/climate_targets/</guid>
       <description>
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
@@ -253,20 +253,20 @@ Paris Agreement
 &lt;p&gt;Comparing targets is complicated by the fact that they use different definitions of emissions, especially for land-use, land-use change, and forestry (LULUCF) sources. In addition, countries could sometimes choose whether or not to include LULUCF emissions towards their targets, which further complicates comparisons. Including LULUCF emissions has little impact on Canada’s targets, but a substantial impact on Australia’s.&lt;/p&gt;
 &lt;p&gt;To simplify the comparison, I’ll start by excluding LULUCF emissions, then discuss how including LULUCF affects Australia. Canada has announced that it intends to account for LULUCF emissions in meeting the Paris Target, but the accounting rules have not yet been decided.&lt;/p&gt;
 &lt;p&gt;Here’s Canada’s greenhouse gas emissions, reduction targets, and projections of future emissions.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/AUCDN_targets/CanAUGHGs_blog_v3_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Climate_targets/Climate_Targets_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As of 2016, Canada’s greenhouse gas emissions are about 80% from burning fossil fuels, with the other 20% from agriculture, industrial processes, and waste. Emissions rose in the 90’s, and have been pretty flat ever since. I’ve plotted two projections of future emissions from &lt;a href=&#34;https://www.canada.ca/en/environment-climate-change/services/climate-change/greenhouse-gas-emissions/seventh-national-communication-third-biennial-report.html&#34;&gt;Environment Canada’s Third Biennial Report on Climate Change.&lt;/a&gt; The orange “Projected: 2017 Policies” shows expected greenhouse gas emissions with policies that were in place by September 2017, which excludes the Pan-Canadian Framework on Clean Growth and Climate — PM Justin Trudeau’s signature climate plan. The green “Projected: Planned Policies” includes most of the policies in the Pan-Canadian Framework, showing how the Framework is expected to be an excellent first step towards meeting the Paris target. If the current &lt;a href=&#34;https://www.macleans.ca/politics/ottawa/a-carbon-tax-just-try-them/&#34;&gt;widespread pressure from conservatives&lt;/a&gt; to reduce, or drop entirely, Canada’s climate change efforts do not come to pass, then I’m cautiously optimistic we’ll finally see some real reductions in emissions.&lt;/p&gt;
 &lt;p&gt;What’s certainly not missing from this picture are laudable climate targets. The grey lines on the figure show a simple reduction path to each target starting from when the targets entered into force (or was announced, in the case of the Toronto target.)&lt;/p&gt;
 &lt;p&gt;The Paris target clearly comes from a long pedigree of moving climate goal posts, and no substantive reduction in greenhouse gas emissions.&lt;/p&gt;
 &lt;div id=&#34;the-picture-down-under&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;The picture down-under&lt;/h3&gt;
 &lt;p&gt;Australia has a broadly similar track record of rising (non-LULUCF) greenhouse gas emissions, repeatedly moving climate target goal posts, and little substantive progress in reducing these emissions.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/AUCDN_targets/CanAUGHGs_blog_v3_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Climate_targets/Climate_Targets_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;How then, does Australia claim that it has &lt;a href=&#34;http://www.environment.gov.au/climate-change/publications/factsheet-australias-2030-climate-change-target&#34;&gt;&lt;em&gt;“a proud history of meeting and beating our international commitments on climate change”&lt;/em&gt;&lt;/a&gt;?&lt;/p&gt;
 &lt;p&gt;The reason hinges on how greenhouse gas emissions from land-use, land-use change, and forestry (LULUCF) are accounted for. The graph below shows how these can be be a large share of a countries GHG emissions, such as occurred in Australia (primarily due to deforestation) in the 1990’s, or remove emissions from the atmosphere, for example via reforestation, and thus count as negative emissions for the purpose of meeting reduction targets.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/AUCDN_targets/CanAUGHGs_blog_v3_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Climate_targets/Climate_Targets_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Changes in LULUCF emissions are particularly important to Australia, and especially to the Kyoto protocol target. Australia negotiated one of the weakest Kyoto targets, an 8% increase over 1990 emissions by 2008-2012. Australia also helped negotiate Article 3.7 of the Kyoto Protocol — sometimes called the “Australia clause” — which made their official target easy to achieve. This is covered well &lt;a href=&#34;https://theconversation.com/australia-hit-its-kyoto-target-but-it-was-more-a-three-inch-putt-than-a-hole-in-one-44731&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;https://theconversation.com/factcheck-has-australia-met-its-climate-goals-while-other-nations-make-airy-fairy-promises-44656&#34;&gt;here&lt;/a&gt;. The Australia clause allowed countries with positive emissions from deforestation in 1990, like Australia had, to include some of these emissions in setting their 1990 baseline from which emission reductions are calculated. But by the time the Kyoto Protocol was negotiated in 1997, Australia knew that deforestation emissions had already greatly declined. Australia in effect received credit for having already reduced its substantial deforestation rates, allowing it to further increase emissions from fossil fuels and other sources.&lt;/p&gt;
 &lt;p&gt;Here’s what the 108% Kyoto target, and other targets, look like when LULUCF emissions are included. By including LULUCF emissions, Australia has achieved it’s Kyoto target.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/AUCDN_targets/CanAUGHGs_blog_v3_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Climate_targets/Climate_Targets_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A caveat is in order here. The Kyoto Protocol used older definitions of emission sources like those from LULUCF, included only some LULUCF sources, had two commitment periods, and defined the target as a 5 year carbon budget rather than a specific goal to be achieved by a single year. As a result, this graph should be seen as broadly representative of the target and reasons it was achieved, rather than an exact match to the target officially declared by Australia. This &lt;a href=&#34;https://timsenvironment.wordpress.com/the-transfer-of-credit-from-kyoto-to-paris-explaining-kyoto-credits-australia-and-the-emissions-budget-for-paris-part-3/&#34;&gt;series of posts by Tim Baxter&lt;/a&gt; discusses some of these issues in more detail, and in particular how the Australia clause and credit for LULUCF emissions will transfer over to the Copenhagen and Paris targets.&lt;/p&gt;
 &lt;p&gt;Regardless of whether LULUCF emissions are included or not, it’s clear that past greenhouse gas reduction targets aren’t a source of optimism for Canada and Australia meeting their Paris commitments.&lt;/p&gt;
 &lt;/div&gt;
