@@ -16,7 +16,7 @@ lastmod: 2019-01-14T00:00:00
 
 ```{r setup,include=FALSE}
 knitr::opts_chunk$set(echo=FALSE,include=FALSE)
-knitr::opts_knit$set(root.dir = normalizePath(".."))
+#knitr::opts_knit$set(root.dir = normalizePath(".."))
 
 library(readr)
 library(tidyr)
