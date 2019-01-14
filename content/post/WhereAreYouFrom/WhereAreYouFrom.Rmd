@@ -243,11 +243,11 @@ temp <- aggregate(immig_share~CensusYear,data=subset(AUCensusData,!(MasterCountr
 #aggregate across regions
 
 #what countries are large in 2011 with "Undefined"
-AUCensusData %>% filter(MasterCountry=="Undefined" & CensusYear==2011) %>% group_by(CensusCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+AUCensusData %>% filter(MasterCountry=="Undefined" & CensusYear==2011) %>% group_by(CensusCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
 #can see no single country jumps out. 
 
 #check Undefined over all years
-AUCensusData %>% filter(MasterCountry=="Undefined") %>% group_by(CensusCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+AUCensusData %>% filter(MasterCountry=="Undefined") %>% group_by(CensusCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
 
 ```
 
@@ -256,7 +256,7 @@ AUCensusData %>% filter(MasterCountry=="Undefined") %>% group_by(CensusCountry) 
 #ctry_list <- c("New Zealand","China","England","Scotland","Canada","Australia","Hong Kong","Italy","Germany","France","Korea","USA","Other","Vietnam","Philippines","South Africa","Poland","Wales")
 
 #choose the X (eg, 30) largest countries by immigration share.
-ctry_list <- AUCensusData %>% group_by(MasterCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+ctry_list <- AUCensusData %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
 ctry_list <- ctry_list[-1,]
 ctry_list <- ctry_list$MasterCountry[1:31] #top X countries of immigrants
 
@@ -272,10 +272,10 @@ AUCensusData_plot$plot_ctry[is.na(AUCensusData_plot$plot_ctry)] <- "Other"
 AUCensusData_plot$plot_ctry[AUCensusData_plot$plot_ctry=="Undefined"] <- "Other"
 
 #what countries have the largest share of immigrants but are within plot_ctry=="Other", i.e. are outside the top X countries?
-AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
 #Undefined is a *large* share... why? What are these people? 
 
-#View(AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl))
+#View(AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl))
 
 #aggregate to get ctry-year shares
 AUCensusData_plot <- AUCensusData_plot %>% select(plot_ctry,CensusYear,share,immig_share,ppl)
@@ -299,15 +299,13 @@ Here's what the 30 largest country of birth shares (ranked as of 2011) look like
 
 ```{r,include=TRUE}
 #plot the X largest countries, ordered by their current share. Use country as a factor. 
+factororder <- AUCensusData_plot %>% filter(year==2011) %>% group_by(country) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
 
-
-factororder <- AUCensusData_plot %>% filter(year==2011) %>% group_by(country) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
-
-#factororder <- AUCensusData_plot %>% group_by(country) %>% summarize(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+#factororder <- AUCensusData_plot %>% group_by(country) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
 factororder <- factororder$country[-1]
 
 ggplot(subset(AUCensusData_plot,country!="Total" & country!="Australia"),aes(x=year,y=share,fill = factor(country,levels=factororder))) + geom_area() + theme_bw() + guides(fill=guide_legend("Region of birth")) +
-  xlab(NULL) + scale_y_continuous(breaks=seq(0,0.25,0.05),name="Share of Australian population",labels = scales::percent_format(accuracy = 1))
+  xlab(NULL) + scale_y_continuous(breaks=seq(0,0.25,0.05),name="Share of Australian population",labels = scales::percent_format(accuracy = 1)) + labs(title="Country of birth of Australian residents", subtitle="Share of all residents")
 
 
 ```
@@ -319,7 +317,7 @@ An alternative way to visualize the contributions from different countries is to
 ```{r,include=TRUE}
 #AU country of birth as share of foreign born
 ggplot(subset(AUCensusData_plot,country!="Total" & country!="Australia",select=-share),aes(x=year,y=immig_share,fill = factor(country,levels=factororder))) + geom_area() + theme_bw() + guides(fill=guide_legend("Region of birth")) +
-  xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1))
+  xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1)) + labs(title="Country of birth of Australian residents", subtitle="Share of foreign-born residents")
 
 ```
 
@@ -358,7 +356,7 @@ factororder <- AUCensusData_plot %>% filter(year==2011) %>% arrange(-immig_share
 factororder <- factororder$region[-(1:2)]
 
 ggplot(subset(AUCensusData_plot,region!="Total" & region!="Australia",select=-share),aes(x=year,y=immig_share,fill = factor(region,levels=factororder))) + geom_area() + theme_bw() + guides(fill=guide_legend("Region of birth")) +
-  xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1))
+  xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1)) + labs(title="Region of birth of Australian residents", subtitle="Share of foreign-born residents")
 
 ```
 
@@ -421,8 +419,6 @@ CDN_Data <- CDN_Data %>% mutate(cty="Canada")
 both_data <- rbind(CDN_Data,both_data)
 
 ggplot(subset(both_data,region!="Total" & region!="Australia"),aes(x="",y=immig_share,fill=factor(region,levels=factororder))) + geom_bar(width=1,stat="identity") + facet_grid(cols=vars(cty),labeller = as_labeller(c("Australia"="Australia (2011)","Canada"="Canada (2016)"))) + guides(fill=guide_legend("Region of birth")) + xlab(NULL) + scale_y_continuous(breaks=seq(0,1,0.1),name="Share of foreign-born population",labels = scales::percent_format(accuracy = 1))
-
-
 
 ```
 
