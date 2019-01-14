@@ -426,7 +426,7 @@ ggplot(subset(both_data,region!="Total" & region!="Australia"),aes(x="",y=immig_
 
 ```
 
-Most noticable is that a larger share of Canada's foreign born population is from Asia, compared to Australia with its larger share from the UK & Ireland. Fitting with Canada being one of the most [culturally diverse countries](http://www.pewresearch.org/fact-tank/2013/07/18/the-most-and-least-culturally-diverse-countries-in-the-world/), it also has larger shares from Africa, Central America, the Middle East, and South America.
+Most noticeable is that a larger share of Canada's foreign born population is from Asia, compared to Australia with its larger share from the UK & Ireland. Fitting with Canada being one of the most [culturally diverse countries](http://www.pewresearch.org/fact-tank/2013/07/18/the-most-and-least-culturally-diverse-countries-in-the-world/), it also has larger shares from Africa, Central America, the Middle East, and South America.
 
 However, this hides an important (and probably surprising to many Canadians?) fact: Australia now has [a much higher share of foreign born residents](https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_by_immigrant_population) (33%) than Canada (23%). 
 
