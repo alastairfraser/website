@@ -12,6 +12,8 @@ editor_options:
 date: 2018-12-30T00:00:00
 lastmod: 2018-12-30T00:00:00
 
+slug: "ClimateTargets"
+
 ---
 
 ```{r setup,include=FALSE}
