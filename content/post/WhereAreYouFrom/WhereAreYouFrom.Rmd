@@ -1,10 +1,11 @@
 ---
 title: "Where are you from?"
+  
 output:
   html_document:
     df_print: paged
     fig_width: 7
-    fig_height: 5
+    fig_height: 5                        
 
 editor_options: 
   chunk_output_type: inline
@@ -12,13 +13,16 @@ editor_options:
 date: 2019-01-14T00:00:00
 lastmod: 2019-01-14T00:00:00
 
-draft: true
+draft: false
 
-slug: "tempWhereAreyouFrom"
+slug: "whereareyoufrom"
+
+    
 
 ---
 
 ```{r setup,include=FALSE}
+#See this option? https://github.com/ropensci/ezknitr#motivation--simple-use-case
 knitr::opts_chunk$set(echo=FALSE,include=FALSE)
 #knitr::opts_knit$set(root.dir = normalizePath(".."))
 

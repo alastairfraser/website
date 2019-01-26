@@ -52,6 +52,9 @@ enableGitInfo = false
   smartypants = true  # `false` disables all smart punctuation substitutions (e.g. smart quotes, dashes, fractions).
   extensions = ["backslashLineBreak"]
 
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+
 [params]
   # AUTHOR SETUP
 

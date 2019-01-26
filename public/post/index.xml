@@ -14,49 +14,31 @@
     
     <item>
       <title>Where are you from?</title>
-      <link>/post/whereareyoufrom/tempwhereareyoufrom/</link>
+      <link>/2019/01/14/whereareyoufrom/</link>
       <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/whereareyoufrom/tempwhereareyoufrom/</guid>
+      <guid>/2019/01/14/whereareyoufrom/</guid>
       <description>One of the things that jumped out at me when I arrived in Australia was, compared to Canada, how European it feels. The coffee, the more rounded edges on cars, the cafe’s with seating on the street, tea, trains. Based on my colleagues at work and people I meet here, Sydney also appears to have more people recently arrived from Europe. Vancouver feels relatively U.S. and Asia focused. So I decided to take a peek at some data.</description>
     </item>
     
     <item>
       <title>Australian and Canadian Greenhouse Gas Emissions</title>
-      <link>/post/emission_sources/emission_sources/</link>
+      <link>/2018/12/30/emissionsources/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/emission_sources/emission_sources/</guid>
+      <guid>/2018/12/30/emissionsources/</guid>
       <description>The conversation around greenhouse gas emissions in Australia differs from that in Canada. In Australia there is much attention on coal generation and renewable energy, where as in Canada the focus is on oil and gas, and in particular the oil sands and export pipelines. To get a sense of where emissions come from in each country this post breaks down and compares emission sources.
 Here’s Australia’s and Canada’s emissions since 1990.</description>
     </item>
     
     <item>
       <title>Australian and Canadian missed climate targets</title>
-      <link>/post/climate_targets/climatetargets/</link>
+      <link>/2018/12/30/climatetargets/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/climate_targets/climatetargets/</guid>
+      <guid>/2018/12/30/climatetargets/</guid>
       <description>We hear a lot about plans to reduce greenhouse gas emissions, yet comparably little about how we’ve lived up to past commitments. It’s worth taking a look at our past (in)actions and goals as they’re important context in which to view current progress.
 It’s not an optimistic picture. Without a change in direction the Paris target is well on track to joining past failed targets, with voters and politicians again kicking the climate can down the road as a problem for future generations to pay the growing costs of.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/post/analysis/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/post/analysis/</guid>
-      <description>Australian and Canadian missed climate targets         code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/post/testclimatetargets/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/post/testclimatetargets/</guid>
-      <description>Australian and Canadian missed climate targets        code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
     </item>
     
   </channel>
