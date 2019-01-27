@@ -17,8 +17,6 @@ draft: true
 
 slug: "whereareyoufrom"
 
-    
-
 ---
 
 ```{r setup,include=FALSE}
