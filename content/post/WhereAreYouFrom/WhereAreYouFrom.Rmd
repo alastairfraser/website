@@ -18,7 +18,6 @@ slug: "whereareyoufrom"
 ---
 
 ```{r setup,include=FALSE}
-#See this option? https://github.com/ropensci/ezknitr#motivation--simple-use-case
 knitr::opts_chunk$set(echo=FALSE,include=FALSE)
 #knitr::opts_knit$set(root.dir = normalizePath(".."))
 
