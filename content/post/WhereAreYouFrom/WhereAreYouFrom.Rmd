@@ -13,7 +13,9 @@ editor_options:
 date: 2019-01-14T00:00:00
 lastmod: 2019-01-14T00:00:00
 
-slug: "whereareyoufroma"
+slug: "whereareyoufrom"
+
+draft: true
 
 ---
 
