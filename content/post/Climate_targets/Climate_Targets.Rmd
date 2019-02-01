@@ -11,7 +11,7 @@ editor_options:
   chunk_output_type: inline
 
 date: 2018-12-30T00:00:00
-lastmod: 2018-12-30T00:00:00
+lastmod: 2010-02-01T00:00:00
 
 slug: "ClimateTargets"
 
@@ -358,7 +358,7 @@ It's not an optimistic picture. Without a change in direction the Paris target i
 
 The Canadian and Australian governments have made public statements on five greenhouse gas reduction targets (see bottom of the post for details). While most of these targets are the result of the [United Nations Framework Convention on Climate Change](https://unfccc.int/) (UNFCCC) process and will sound familiar, the Toronto target is rarely mentioned but particularly interesting given current politics. Arguably the first Canadian greenhouse gas emission reduction target, it resulted from the [Toronto Conference on the Changing Atmosphere](https://www.nytimes.com/1988/06/28/science/norway-and-canada-call-for-pact-to-protect-atmosphere.html) supported by the Progressive Conservative government of Brian Mulroney. It's the only international target adopted unofficially by the Canadian and Australian governments without a signed multilateral agreement.
 
-Greenhouse gas reduction targets consist of four key pieces of information: a baseline year that defines the starting level of greenhouse gas emissions, a target percentage reduction in (or limited increase in) emissions, the year by which a reduction target should be achieved, and --- more on this later, as it's critical to Australia's targets --- a definition of what emissions must be accounted for. Here's the Canadian and Australian targets. 
+Greenhouse gas reduction targets consist of four key pieces of information: a baseline year that defines the starting level of greenhouse gas emissions, a target percentage reduction in (or limited increase in) emissions, the year by which a reduction target should be achieved, and --- more on this later, as it's critical to Australia's targets --- a definition of what emissions must be accounted for. Here's the Canadian and Australian emission reduction targets. 
 
 ```{r,include=TRUE,results='asis'}
 GHGTargetsTable <- GHGTargets %>% select(cty,Agreement,BaseYear,TargetYear,TargetPC,SignYear)
@@ -396,9 +396,9 @@ What's certainly not missing from this picture are laudable climate targets. The
 
 The Paris target clearly comes from a long pedigree of moving climate goal posts, and no substantive reduction in greenhouse gas emissions.
 
-### The picture down-under
+### The picture down under
 
-Australia has a broadly similar track record of rising (non-LULUCF) greenhouse gas emissions, repeatedly moving climate target goal posts, and little substantive progress in reducing these emissions.
+Australia has a broadly similar track record of rising (non-LULUCF) greenhouse gas emissions, repeatedly moving climate target goal posts, and no substantive progress in reducing these emissions. Like Canada, Australia has not come close to meeting any of its targets. 
 
 ```{r,include=TRUE,fig.width=7,fig.height=5,fig.align="center"}
 plot(AU_targets_exLULUCF)
