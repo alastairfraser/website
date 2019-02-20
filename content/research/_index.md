@@ -1,4 +1,4 @@
-+++
++++ 
 title = "Research"
 date = 2017-01-01T00:00:00
 
@@ -18,9 +18,9 @@ caption = ""
 
 ## Works in progress
 
-  * Financial Incentives or Persistent Habits? How Households Respond to Financial Rewards for Electricity Conservation. Working paper. Solo-authored.
-  * Complements or Substitutes? The Importance of Mode Choice In International Trade. Working paper. Solo-authored.
-  * Trade-offs in investment carbon footprints. Solo-authored.
+  * Financial Incentives or Persistent Habits? How Households Respond to Financial Rewards for Electricity Conservation. 
+  * Complements or Substitutes? The Importance of Mode Choice In International Trade. Working paper. 
+  * Trade-offs in investment carbon footprints.
 
 ***
 
