@@ -64,8 +64,8 @@ enableGitInfo = false
   subrole = "(Assistant Professor)"
   fieldfirst = "Environmental & Energy"
   fieldsecond = "Economist"
-  building = "Social Sciences Building"
-  office = "Office #566"
+  #building = "Social Sciences Building"
+  office = "Office: A02 #566"
   bio = "bio param"
 
   # Organizations/Affiliations.
