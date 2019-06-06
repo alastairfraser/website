@@ -18,7 +18,7 @@ caption = ""
 
 ## Works in progress
 
-  * Financial Incentives or Persistent Habits? How Households Respond to Financial Rewards for Electricity Conservation. 
+  * Intensive and Extensive Margin Responses in Electricity Conservation: How Households Respond to Financial Rewards. [Paper.](papers/Fraser_BCH_May2019.pdf) [Appendix.](papers/Fraser_BCHAppendix_May2019.pdf) 
   * Complements or Substitutes? The Importance of Mode Choice In International Trade.
   * Trade-offs in investment carbon footprints.
 
