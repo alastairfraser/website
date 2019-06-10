@@ -16,6 +16,11 @@ caption = ""
 
 ***
 
+## Info for prospective students
+
+I'm available to advise on topics closely related to my research. I have several projects that are potentially suitable for an honours or MEcA thesis, or an undergrad student wishing to gain experience with empirical work. I unfortunately do not have any paid RA opportunities at this time. 
+***
+
 ## Works in progress
 
   * Intensive and Extensive Margin Responses in Electricity Conservation: How Households Respond to Financial Rewards. [Paper.](papers/Fraser_BCH_May2019.pdf) [Appendix.](papers/Fraser_BCHAppendix_May2019.pdf) 
