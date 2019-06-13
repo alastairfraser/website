@@ -18,12 +18,13 @@ caption = ""
 
 ## Info for prospective students
 
-I'm available to advise on topics closely related to my research. I have several projects that are potentially suitable for an honours or MEcA thesis, or an undergrad student wishing to gain experience with empirical work. I unfortunately do not have any paid RA opportunities at this time. 
+I have several projects related to my research which might be suitable for an honours or MEcA thesis, or for an undergraduate student wishing to gain experience with empirical work. These projects include using detailed high frequency electricity data to study household behaviour, measuring the scale of carbon emissions from international trade, and investigating low-carbon and high ESG investment funds. If you're interested, please get in touch. I unfortunately do not have any paid RA opportunities at this time.
+
 ***
 
 ## Works in progress
 
-  * Intensive and Extensive Margin Responses in Electricity Conservation: How Households Respond to Financial Rewards. [Paper.](papers/Fraser_BCH_May2019.pdf) [Appendix.](papers/Fraser_BCHAppendix_May2019.pdf) 
+  * Intensive and Extensive Margin Responses in Electricity Conservation: How Households Respond to Financial Rewards. [Paper.](papers/Fraser_BCH_June2019.pdf) [Appendix.](papers/Fraser_BCHAppendix_June2019.pdf) 
   * Complements or Substitutes? The Importance of Mode Choice In International Trade.
   * Trade-offs in investment carbon footprints.
 
