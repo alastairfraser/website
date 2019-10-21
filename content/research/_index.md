@@ -24,7 +24,7 @@ I have several projects related to my research which might be suitable for an ho
 
 ## Works in progress
 
-  * Intensive and Extensive Margin Responses in Electricity Conservation: How Households Respond to Financial Rewards. [Paper.](papers/Fraser_BCH_June2019.pdf) [Appendix.](papers/Fraser_BCHAppendix_June2019.pdf) 
+  * Intensive and Extensive Margin Responses in Electricity Conservation: How Households Respond to Financial Rewards. [Paper.](papers/Fraser_BCH.pdf) [Appendix.](papers/Fraser_BCHAppendix.pdf) 
   * Complements or Substitutes? The Importance of Mode Choice In International Trade.
   * Trade-offs in investment carbon footprints.
 
