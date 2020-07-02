@@ -1,0 +1,402 @@
+---
+title: "Changes in Sydney rent during covid 19"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+editor_options: 
+  chunk_output_type: inline
+---
+
+Among the many things (ok, pretty much everything) that covid19 is impacting is the cost of rent in Sydney. The NSW government [releases the rent data monthly](https://www.fairtrading.nsw.gov.au/about-fair-trading/data-and-statistics/rental-bond-data) so I thought I'd take a look. This data comes from the rental bonds that must be submitted when new leases are signed, and show weekly rents. So a warning to you up-toppers, $500 weekly rent is $2166 per month.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(include=FALSE,echo=FALSE)
+#knitr::opts_knit$set(root.dir = normalizePath(".."),echo=FALSE,include=FALSE)
+
+```
+
+```{r}
+rm(list = ls())
+library(readxl)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(zoo)
+library(lubridate)
+```
+
+```{r}
+#getwd()
+#this data comes from: https://www.fairtrading.nsw.gov.au/about-fair-trading/data-and-statistics/rental-bond-data
+rentdata <- read_xlsx("RentData/RentalBond_Lodgements_Year_2016.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+rentdata$date <- as.Date(rentdata$date, origin="1899-12-30")
+tempdata <- read_xlsx("RentData/RentalBond_Lodgements_Year_2017.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+tempdata <- read_xlsx("RentData/RentalBond_Lodgements_Year_2018.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+tempdata <- read_xlsx("RentData/RentalBond_Lodgements_Year_2019.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+
+#montly data
+tempdata <- read_xlsx("RentData/RentalBond_Lodgements_January_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+tempdata <- read_xlsx("RentData/RentalBond_Lodgements_February_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+tempdata <- read_xlsx("RentData/Rental-bond-lodgements-for-March-2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+tempdata <- read_xlsx("RentData/RentalBond_Lodgements_April_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+tempdata <- read_xlsx("RentData/Rental-Bond-Lodgements-for-May-2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
+
+rm(tempdata)
+rentdata <- rentdata %>% rename(Type="Dwelling Type",Rent="Weekly Rent")
+
+#remove non-numeric rents
+rentdata$Rent <- as.numeric(rentdata$Rent)
+#length(unique(rentdata$Postcode))
+#617 unique postal codes... 
+#remove missing rent data
+rentdata <- rentdata[!is.na(rentdata$Rent),]
+rentdata$Bedrooms <- as.numeric(rentdata$Bedrooms)
+
+#convert housing types to useful names
+rentdata$Type[rentdata$Type=="F"] <- "Apartment"
+rentdata$Type[rentdata$Type=="H"] <- "House"
+rentdata$Type[rentdata$Type=="O"] <- "Other"
+rentdata$Type[rentdata$Type=="T"] <- "Townhouse"
+rentdata$Type[rentdata$Type=="U"] <- "Unknown"
+
+#using: https://www.freemaptools.com/find-australian-postcodes-inside-radius.htm
+
+#split data file into region files. If this isn't done, then the data would need to be completed within each postal code which would produce a very sparse dataset.
+rentallSyd <- rentdata %>% filter(rentdata$Postcode %in% c(2000,2006,2007,2008,2009,2010,2011,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049,2050,2055,2060,2061,2062,2063,2064,2065,2066,2067,2068,2069,2070,2071,2072,2073,2074,2075,2076,2077,2079,2080,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2092,2093,2094,2095,2096,2097,2099,2100,2101,2102,2103,2104,2105,2106,2107,2108,2110,2111,2112,2113,2114,2115,2116,2117,2118,2119,2120,2121,2122,2125,2126,2127,2128,2130,2131,2132,2133,2134,2135,2136,2137,2138,2140,2141,2142,2143,2144,2145,2146,2147,2148,2150,2151,2152,2153,2154,2155,2156,2157,2158,2159,2160,2161,2162,2163,2164,2165,2166,2167,2168,2170,2171,2172,2173,2175,2176,2177,2178,2179,2190,2191,2192,2193,2194,2195,2196,2197,2198,2199,2200,2203,2204,2205,2206,2207,2208,2209,2210,2211,2212,2213,2214,2216,2217,2218,2219,2220,2221,2222,2223,2224,2225,2226,2227,2228,2229,2230,2231,2232,2233,2234,2250,2251,2256,2257,2260,2508,2515,2516,2517,2518,2555,2556,2557,2558,2559,2560,2563,2564,2565,2566,2567,2568,2569,2570,2571,2745,2747,2748,2749,2750,2752,2753,2754,2756,2757,2758,2759,2760,2761,2762,2763,2765,2766,2767,2768,2769,2770,2773,2774,2775,2777)) %>% select(-Postcode)
+
+rent5kmUSyd <- rentdata %>% filter(rentdata$Postcode %in% c(2000,2006,2007,2008,2009,2010,2011,2015,2016,2017,2018,2020,2021,2027,2033,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2048,2049,2050,2130,2203,2204)) %>% select(-Postcode)
+
+rent10kmCBD <- rentdata %>% filter(rentdata$Postcode %in% c(2000,2006,2007,2008,2009,2010,2011,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049,2050,2060,2061,2062,2063,2064,2065,2066,2067,2068,2088,2089,2090,2092,2093,2110,2111,2113,2130,2131,2132,2133,2134,2136,2137,2193,2203,2204,2205,2206,2207,2216)) %>% select(-Postcode)
+
+#Postal codes within 4km of me
+#2000,2006,2007,2008,2009,2010,2015,2016,2017,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2048,2049,2050,2130,2204
+#Drop unknown bedrooms and all units with above 2 bedrooms
+
+#Postal codes within 5km of USyd
+#2000,2006,2007,2008,2009,2010,2011,2015,2016,2017,2018,2020,2021,2027,2033,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2048,2049,2050,2130,2203,2204
+
+#Postal codes within 10km of the Town hall
+#2000,2006,2007,2008,2009,2010,2011,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049,2050,2060,2061,2062,2063,2064,2065,2066,2067,2068,2088,2089,2090,2092,2093,2110,2111,2113,2130,2131,2132,2133,2134,2136,2137,2193,2203,2204,2205,2206,2207,2216
+
+#postal codes within 60km of me, which is roughly greater Sydney
+#2000,2006,2007,2008,2009,2010,2011,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038,2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049,2050,2055,2060,2061,2062,2063,2064,2065,2066,2067,2068,2069,2070,2071,2072,2073,2074,2075,2076,2077,2079,2080,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090,2092,2093,2094,2095,2096,2097,2099,2100,2101,2102,2103,2104,2105,2106,2107,2108,2110,2111,2112,2113,2114,2115,2116,2117,2118,2119,2120,2121,2122,2125,2126,2127,2128,2130,2131,2132,2133,2134,2135,2136,2137,2138,2140,2141,2142,2143,2144,2145,2146,2147,2148,2150,2151,2152,2153,2154,2155,2156,2157,2158,2159,2160,2161,2162,2163,2164,2165,2166,2167,2168,2170,2171,2172,2173,2175,2176,2177,2178,2179,2190,2191,2192,2193,2194,2195,2196,2197,2198,2199,2200,2203,2204,2205,2206,2207,2208,2209,2210,2211,2212,2213,2214,2216,2217,2218,2219,2220,2221,2222,2223,2224,2225,2226,2227,2228,2229,2230,2231,2232,2233,2234,2250,2251,2256,2257,2260,2508,2515,2516,2517,2518,2555,2556,2557,2558,2559,2560,2563,2564,2565,2566,2567,2568,2569,2570,2571,2745,2747,2748,2749,2750,2752,2753,2754,2756,2757,2758,2759,2760,2761,2762,2763,2765,2766,2767,2768,2769,2770,2773,2774,2775,2777
+
+#expand each file into the full set of dates and types, keeping only 3 or under bedroom known types
+rentallSyd <- rentallSyd %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown" | Type=="Other"))
+rent5kmUSyd <- rent5kmUSyd %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown" | Type=="Other"))
+rent10kmCBD <- rent10kmCBD %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown" | Type=="Other"))
+
+#expand with full set of dates
+newdates <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 1915)) %>% filter(date<as.Date("2020-06-01"))
+
+rentallSyd <- left_join(newdates,rentallSyd,by="date")
+rentallSyd <- complete(rentallSyd,date,Type,Bedrooms) 
+rentallSyd <- rentallSyd %>% filter(!(is.na(Type) | is.na(Bedrooms)))
+rentallSyd <- rentallSyd[order(rentallSyd$Type,rentallSyd$Bedrooms,rentallSyd$date),]
+
+rent5kmUSyd <- left_join(newdates,rent5kmUSyd,by="date")
+rent5kmUSyd <- complete(rent5kmUSyd,date,Type,Bedrooms) 
+rent5kmUSyd <- rent5kmUSyd %>% filter(!(is.na(Type) | is.na(Bedrooms)))
+rent5kmUSyd <- rent5kmUSyd[order(rent5kmUSyd$Type,rent5kmUSyd$Bedrooms,rent5kmUSyd$date),]
+
+rent10kmCBD <- left_join(newdates,rent10kmCBD,by="date")
+rent10kmCBD <- complete(rent10kmCBD,date,Type,Bedrooms) 
+rent10kmCBD <- rent10kmCBD %>% filter(!(is.na(Type) | is.na(Bedrooms)))
+rent10kmCBD <- rent10kmCBD[order(rent10kmCBD$Type,rent10kmCBD$Bedrooms,rent10kmCBD$date),]
+rm(newdates)
+
+#check number of observations by type and bedroom
+rentallSyd %>% group_by(Type,Bedrooms) %>% filter(Bedrooms<=5) %>% filter(!is.na(Rent)) %>% add_count() %>% select(Type,Bedrooms,n) %>% distinct()
+#Apartments are largest for 1 and 2 bedrooms, houses for 3 and 4 bedrooms
+
+#test that rentallSyd is correctly picking up April data
+#test <- rentallSyd %>% filter(date<as.Date("2020-05-01")) %>% filter(date>as.Date("2020-03-31"))
+
+#test2 <- rentallSyd %>% filter(!is.na(Rent)) %>% filter(date >= as.Date("2020-01-01")) %>% mutate(month=month(date)) %>% filter(Bedrooms %in% c(1,2)) %>% filter(Type=="Apartment") %>% filter(month %in% c(2,4)) %>% select(Bedrooms,month,Rent) %>% group_by(month,Bedrooms) %>% summarise(aveRent=mean(Rent))
+
+```
+
+```{r}
+#Calculate the number of units being rented by date and type
+
+temp <- rentallSyd %>% filter(!is.na(Rent)) %>% select(date,Type) %>% group_by(date,Type) %>% add_count(name="All") %>% ungroup %>% distinct()
+numunits <- left_join(rentallSyd,temp,by=c("date","Type")) %>% filter(Type %in% c("Apartment","House")) %>% select(date,Type,All) %>% distinct()
+
+temp <- rent5kmUSyd %>% filter(!is.na(Rent)) %>% select(date,Type) %>% group_by(date,Type) %>% add_count(name="5kmUSyd") %>% ungroup %>% distinct()
+numunits <- left_join(numunits,temp,by=c("date","Type"))
+
+temp <- rent10kmCBD %>% filter(!is.na(Rent)) %>% select(date,Type) %>% group_by(date,Type) %>% add_count(name="10kmCBD") %>% ungroup %>% distinct()
+numunits <- left_join(numunits,temp,by=c("date","Type"))
+
+numunits <- pivot_longer(numunits,cols=-c(date,Type),names_to="group",values_to="n_datetype")
+
+rm(temp)
+
+#set missing number of observations to be zero
+numunits$n_datetype[is.na(numunits$n_datetype)] <- 0
+numunits <- numunits[order(numunits$date,numunits$Type),]
+
+#plot 2019 vs 2020 number of units, moving average but without indexing
+plotdata <- numunits %>% group_by(group,Type) %>% arrange(date) %>% mutate(ma7=rollapply(n_datetype,7,mean,align='right',fill=NA))
+plotdata <- plotdata[order(plotdata$date,plotdata$Type,plotdata$group),]
+
+plotdata <- plotdata %>% filter((date < as.Date("2021-01-01")) & (date >= as.Date("2019-01-01"))) %>% mutate(year=ifelse(date < as.Date("2020-01-01"),"2019","2020")) 
+#shift 2019 dates forward by a year so they can be plotted together
+plotdata$date[plotdata$date < as.Date("2020-01-01")] <- plotdata$date[plotdata$date < as.Date("2020-01-01")] + dyears(1)
+plotdata$year <- as.factor(plotdata$year)
+
+```
+
+The NSW Fair Trading data is for recent rental bond lodgements, so the number of new bonds should indicate the number of new leases signed. I'm not sure if a tenant resigning their lease at a different rent will appear in the rental bond data, or whether the previous bond is kept by the government as-is without any update to the data. 
+
+Here's the changes in bonds lodged across greater Sydney. I was expecting a fall in bonds signed compared to last year as people tried not to move, but instead theres an increase — though as mentioned this maythe re-signing at lower rents.
+
+
+```{r,include=TRUE}
+#Number of new rentals across all of Sydney
+ggplot(subset(plotdata,group=="All"),aes(x=date,y=ma7,color=year)) + geom_line(size=0.8) + 
+  facet_wrap(~Type,labeller=as_labeller(c(Apartment="Apartments",House="Houses"))) +
+  scale_x_date(date_labels = "%b",date_breaks = "1 months",date_minor_breaks = "1 months",name=NULL) +
+  scale_y_continuous(name="Leases signed (7 day moving average)") + theme_bw() + expand_limits(y = 0) +
+  theme(
+    strip.text.x = element_text(size = 10,face = "bold"),
+    axis.text.x = element_text(angle = 45,vjust=0.8),
+    legend.title = element_blank(),
+    legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 7),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)
+    ) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  labs(title="Number of new rental leases signed in Greater Sydney")
+
+```
+
+
+```{r}
+#10 km of CBD
+
+ggplot(subset(plotdata,group=="10kmCBD"),aes(x=date,y=ma7,color=year)) + geom_line(size=0.8) + 
+  facet_wrap(~Type,labeller=as_labeller(c(Apartment="Apartments",House="Houses"))) +
+  scale_x_date(date_labels = "%b",date_breaks = "1 months",date_minor_breaks = "1 months",name=NULL) +
+  scale_y_continuous(name="Leases signed (7 day moving average)") + theme_bw() + 
+  theme(
+    strip.text.x = element_text(size = 10,face = "bold"),
+    axis.text.x = element_text(angle = 45,vjust=0.8),
+    legend.title = element_blank(),
+    legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 7),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)
+    ) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  labs(title="Number of new rental leases signed within 10km of the CBD")
+
+
+```
+
+
+```{r}
+#5 km of USyd
+ggplot(subset(plotdata,group=="5kmUSyd"),aes(x=date,y=ma7,color=year)) + geom_line(size=0.8) + 
+  facet_wrap(~Type,labeller=as_labeller(c(Apartment="Apartments",House="Houses"))) +
+  scale_x_date(date_labels = "%b",date_breaks = "1 months",date_minor_breaks = "1 months",name=NULL) +
+  scale_y_continuous(name="Leases signed") + theme_bw() + 
+  theme(
+    strip.text.x = element_text(size = 10,face = "bold"),
+    axis.text.x = element_text(angle = 45,vjust=0.8),
+    legend.title = element_blank(),
+    legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 7),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)
+    ) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  labs(title="Number of new rental leases signed within 5km of USyd", subtitle="7 day moving average")
+
+
+
+```
+
+
+```{r}
+#Calculate moving average of rent for all groups and types
+rentdata <- rentallSyd %>% filter(Type %in% c("Apartment","House")) %>% filter(Bedrooms %in% c(1,2,3,4,5)) %>% mutate(group="All")
+rentdata <- rent5kmUSyd %>% filter(Type %in% c("Apartment","House")) %>% filter(Bedrooms %in% c(1,2,3,4,5)) %>% mutate(group="5kmUSyd") %>% rbind(rentdata)
+rentdata <- rent10kmCBD %>% filter(Type %in% c("Apartment","House")) %>% filter(Bedrooms %in% c(1,2,3,4,5)) %>% mutate(group="10kmCBD") %>% rbind(rentdata)
+
+rentdata <- rentdata %>% group_by(group,Type,Bedrooms,date) %>% arrange(group,Type,Bedrooms,date) %>% mutate(id = row_number()) %>% add_count() %>% ungroup
+
+temp <- rentdata %>% filter(id==n) %>% group_by(group,Type,Bedrooms) %>% arrange(group,Type,Bedrooms,date) %>% mutate(rollsum=rollapply(id,7,sum,align='right',fill=NA)) %>% select(date,group,Type,Bedrooms,id,rollsum) %>% ungroup
+#this leaves temp with variable rollsum as the width that should be used in the moving average This needs to be merged back into the full dataset before applying the moving average
+
+rentdata <- left_join(rentdata,temp,by=c("group","Type","Bedrooms","date","id"))
+rentdata$rollsum[is.na(rentdata$rollsum)] <- 0
+rentdata <- arrange(rentdata,group,Type,Bedrooms,date) %>% group_by(group,Type,Bedrooms) %>% mutate(ma7=rollapply(Rent,width=rollsum,mean,align='right',fill=NA,na.rm = TRUE)) %>% ungroup %>% filter(id==n) %>% select(date,group,Type,Bedrooms,ma7)
+
+#test <-rentallSyd %>% filter(Bedrooms==2) %>% group_by(Type) %>% filter(!is.na(Rent)) %>% summarize(averent=mean(Rent))
+
+#calculate fall in rent from February average to March average
+
+#test1 <- rentdata %>% filter(date >= as.Date("2020-01-01")) %>% mutate(month=month(date)) %>% filter(Bedrooms %in% c(1,2)) %>% filter(Type=="Apartment") %>% filter(month %in% c(2,4)) %>% select(group,Bedrooms,month,ma7) %>% group_by(month,group,Bedrooms) %>% summarise(aveRent=mean(ma7))
+
+#test2 <- rentdata %>% filter(date >= as.Date("2020-01-01")) %>% mutate(month=month(date)) %>% filter(Bedrooms %in% c(3,4)) %>% filter(Type=="House") %>% filter(month %in% c(2,4)) %>% select(group,Bedrooms,month,ma7) %>% group_by(month,group,Bedrooms) %>% summarise(aveRent=mean(ma7))
+
+#1 bedrooms fall 0.086134453781513 
+#2 bedrooms about 6%
+```
+
+To look at average rents I split up housing into the largest categories, one and two bedroom apartments and three and four bedroom houses, and take a 7 day moving average.
+
+Rents for apartments in greater Sydney have fallen by about 10% for 1 bedroom and 6.5% for 2 bedrooms.
+
+```{r,include=TRUE}
+#Plot 2019 vs 2020 for Apartments
+plotdata <- rentdata %>% filter((date < as.Date("2021-01-01")) & (date >= as.Date("2019-01-01"))) %>% mutate(year=ifelse(date < as.Date("2020-01-01"),"2019","2020"))
+#shift 2019 dates forward by a year so they can be plotted together
+plotdata$date[plotdata$date < as.Date("2020-01-01")] <- plotdata$date[plotdata$date < as.Date("2020-01-01")] + dyears(1)
+
+plotdata$year <- as.factor(plotdata$year)
+plotdata$Bedrooms <- as.factor(plotdata$Bedrooms)
+
+#10kmCBD  labs(title="Average rent, new leases within 10km of the CBD",caption="Data: www.fairtrading.nsw.gov.au    Plot by @alastairfraser")
+
+#All labs(title="Average rent, new leases in greater Sydney",caption="Data: www.fairtrading.nsw.gov.au    Plot by @alastairfraser")
+
+ggplot(subset(plotdata,group=="All" & Type=="Apartment" & (Bedrooms %in% c(1,2))),aes(x=date,y=ma7,color=year)) + geom_line(size=0.8) +
+  facet_wrap(~Bedrooms,labeller=as_labeller(c("1"="One Bedroom Apartments","2"="Two Bedroom Apartments"))) +
+  scale_x_date(date_labels = "%b",date_breaks = "1 months",date_minor_breaks = "1 months",name=NULL) +
+  scale_y_continuous(name="Weekly Rent (7 day moving average)") + theme_bw() + expand_limits(y = c(400,625)) +
+  theme(strip.text.x = element_text(size = 10,face = "bold"),
+    axis.text.x = element_text(angle = 45,vjust=0.8),
+    legend.title = element_blank(),
+    legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 8),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  labs(title="Average rent for Apartments",subtitle="New leases in greater Sydney")
+
+```
+
+The fall in rent is slightly larger if I look within 5km of the University of Sydney, which includes the central business district and a lot of apartment stock.
+
+```{r,include=TRUE}
+
+ggplot(subset(plotdata,group=="5kmUSyd" & Type=="Apartment" & (Bedrooms %in% c(1,2))),aes(x=date,y=ma7,color=year)) + geom_line(size=0.8) +
+  facet_wrap(~Bedrooms,labeller=as_labeller(c("1"="One Bedroom Apartments","2"="Two Bedroom Apartments"))) +
+  scale_x_date(date_labels = "%b",date_breaks = "1 months",date_minor_breaks = "1 months",name=NULL) +
+  scale_y_continuous(name="Weekly Rent (7 day moving average)") + theme_bw() + expand_limits(y = c(400,625)) +
+  theme(strip.text.x = element_text(size = 10,face = "bold"),
+    axis.text.x = element_text(angle = 45,vjust=0.8),
+    legend.title = element_blank(),
+    legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 8),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  labs(title="Average rent for Apartments",subtitle="New leases within 5 km of the University of Sydney")
+
+
+```
+
+In contrast, rent for single-family dwellings (houses) hasn't fallen at all. This suggests the impacts of the covid19 financial crisis are, unsurprisingly, being felt very differently depending on the type of housing you can afford.
+
+```{r,include=TRUE}
+#```{r,fig.width=12,fig.height=5,include=TRUE}
+#Rent for houses
+ggplot(subset(plotdata,group=="All" & Type=="House" & (Bedrooms %in% c(3,4))),aes(x=date,y=ma7,color=year)) + geom_line(size=0.8) +
+  facet_wrap(~Bedrooms,labeller=as_labeller(c("3"="Three Bedroom Houses","4"="Four Bedroom Houses"))) +
+  scale_x_date(date_labels = "%b",date_breaks = "1 months",date_minor_breaks = "1 months",name=NULL) +
+  scale_y_continuous(name="Weekly Rent (7 day moving average)") + theme_bw() + expand_limits(y = c(500,850)) +
+  theme(strip.text.x = element_text(size = 10,face = "bold"),
+    axis.text.x = element_text(angle = 45,vjust=0.8),
+    legend.title = element_blank(),
+    legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 8),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  labs(title="Average rent for Houses",subtitle="New leases in greater Sydney")
+
+```
+
+As the previous comparisons were all of 2020 vs 2019, I've plotted the full available time series of rents below.
+
+```{r,include=TRUE}
+#Time series of rents over many years
+plotdata <- rentdata %>% filter(ma7!="NaN")
+plotdata$Bedrooms <- as.factor(plotdata$Bedrooms)
+
+ggplot(subset(plotdata,group=="All" & Type=="Apartment" & (Bedrooms %in% c(1,2))),aes(x=date,y=ma7,color=Bedrooms)) + geom_line(size=0.8) +
+  scale_x_date(date_labels = "%Y",date_breaks = "1 years",date_minor_breaks = "9 months",name=NULL) + 
+  scale_y_continuous(name="Weekly Rent (7 day moving average)") + theme_bw() + expand_limits(y = c(400,625)) +
+  theme(legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 8),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)) +
+  scale_color_manual(values = c("1" = "blue3", "2" = "orangered3")) + 
+  labs(title="Average rent for 1 & 2 Bedroom Apartments",subtitle="New leases in greater Sydney")
+
+
+
+```
+
+```{r,include=TRUE}
+#Time series of rents over many years for homes
+plotdata <- rentdata %>% filter(ma7!="NaN")
+plotdata$Bedrooms <- as.factor(plotdata$Bedrooms)
+
+ggplot(subset(plotdata,group=="All" & Type=="House" & (Bedrooms %in% c(3,4))),aes(x=date,y=ma7,color=Bedrooms)) + geom_line(size=0.8) +
+  scale_x_date(date_labels = "%Y",date_breaks = "1 years",date_minor_breaks = "9 months",name=NULL) + 
+  scale_y_continuous(name="Weekly Rent (7 day moving average)") + theme_bw() + expand_limits(y = c(400,625)) +
+  theme(legend.direction = "horizontal",
+    legend.position = "bottom",
+    legend.text=element_text(size=10,face = "bold"),
+    legend.key.width = unit(1.0,"cm"),
+    plot.caption = element_text(size = 8),
+    legend.margin=margin(0,0,0,0),
+    legend.box.margin=margin(-10,0,0,0)) +
+  scale_color_manual(values = c("3" = "darkgreen", "4" = "maroon")) + 
+  labs(title="Average rent for 3 & 4 Bedroom Houses",subtitle="New leases in greater Sydney")
+
+```
+

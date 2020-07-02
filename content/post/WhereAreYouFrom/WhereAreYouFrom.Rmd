@@ -66,7 +66,7 @@ AU_CrosswalkRaw <- AU_CrosswalkRaw[-(1:9),]
 
 #import edited crosswalk
 AU_Crosswalk <- read_excel("Data/Australia/CensusCountryList_Crosswalk.xlsx")
-AU_Crosswalk <- select(AU_Crosswalk,-X__1)
+AU_Crosswalk <- select(AU_Crosswalk,-index)
 AU_Crosswalk <- rename(AU_Crosswalk,MasterCountry=MasterCountry_1)
 
 #assign "Other" to the list of countries, but excluding the totals
@@ -82,120 +82,120 @@ AU_FullCensusData <- NULL
 
 year <- "1901"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.7",range = "A5:AF95")
-temp <- select(temp,"X__1","X__24")
+temp <- select(temp,"...1","...32")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1911"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.8",range = "A5:AJ237")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1921"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.9",range = "A5:AJ123")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1933"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.10",range = "A5:AJ124")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1947"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.11",range = "A5:AJ125")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1954"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.12",range = "A5:AJ98")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1961"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.13",range = "A5:AJ100")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1966"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.14",range = "A5:AJ100")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1971"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.15",range = "A5:AJ108")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1976"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.16",range = "A5:AJ112")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1981"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.17",range = "A5:AJ119")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1986"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.18",range = "A5:AJ125")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1991"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.19",range = "A5:AJ239")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "1996"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.20",range = "A5:AJ263")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "2001"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.21",range = "A5:AJ255")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "2006"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.22",range = "A5:AJ330")
-temp <- select(temp,"X__1","X__27")
+temp <- select(temp,"...1","...36")
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
 
 year <- "2011"
 temp <- read_excel("Data/Australia/3105065001ds0008_2014.xls",sheet = "Table 8.23",range = "A5:AB339")
-temp <- temp %>% select("X__1","X__19") %>% filter(!is.na(temp$"X__1"))
-temp$X__19 <- as.numeric(temp$X__19)
+temp <- temp %>% select("...1","...28") %>% filter(!is.na(temp$"...1"))
+temp$...28 <- as.numeric(temp$...28)
 names(temp) <- c("CensusCountry","ppl")
 temp$CensusYear <- year
 AU_FullCensusData <- rbind(AU_FullCensusData,temp)
@@ -390,7 +390,7 @@ write.csv(CDN_Data,file="Data/Canada/CDN_Data.csv")
 CDN_Crosswalk <- read_excel("Data/Canada/CDN_Crosswalk.xlsx")
 unique(CDN_Crosswalk$region)
 
-CDN_Data <- CDN_Crosswalk %>% select(-X__1,-MasterCountry)
+CDN_Data <- CDN_Crosswalk %>% select(-...1,-MasterCountry)
 
 #assign Other to all others
 CDN_Data$region[is.na(CDN_Data$region)] <- "Other"
