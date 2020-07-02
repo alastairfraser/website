@@ -1,11 +1,22 @@
 ---
 title: "Changes in Sydney rent during covid 19"
+  
 output:
   html_document:
     df_print: paged
-  pdf_document: default
+    fig_width: 7
+    fig_height: 5                        
+
 editor_options: 
   chunk_output_type: inline
+
+date: 2020-07-03T00:00:00
+lastmod: 2020-07-03T00:00:00
+
+slug: "SydneyCovid19Rent"
+
+draft: false
+
 ---
 
 Among the many things (ok, pretty much everything) that covid19 is impacting is the cost of rent in Sydney. The NSW government [releases the rent data monthly](https://www.fairtrading.nsw.gov.au/about-fair-trading/data-and-statistics/rental-bond-data) so I thought I'd take a look. This data comes from the rental bonds that must be submitted when new leases are signed, and show weekly rents. So a warning to you up-toppers, $500 weekly rent is $2166 per month.
