@@ -1,41 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Homes on Alastair Fraser</title>
+    <title>Posts | Academic</title>
     <link>/home/</link>
-    <description>Recent content in Homes on Alastair Fraser</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Wed, 20 Apr 2016 00:00:00 +1000</lastBuildDate>
-    
-	<atom:link href="/home/index.xml" rel="self" type="application/rss+xml" />
-    
+      <atom:link href="/home/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Posts</title>
+      <link>/home/</link>
+    </image>
     
     <item>
       <title></title>
-      <link>/home/about/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +1000</pubDate>
-      
-      <guid>/home/about/</guid>
-      <description>About me I am an energy and environmental economist broadly interested in how to effectively address climate change. My current work focuses on three streams: improving our understanding of how consumers respond to information and incentives in their energy use and conservation decisions, how the substitution between transport modes within international trade impacts trade flows and the regulation of carbon emissions from international transportation, and on how investment carbon-footprints relate to physical carbon emissions.</description>
-    </item>
-    
-    <item>
-      <title>Blog Posts</title>
-      <link>/home/posts/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +1000</pubDate>
-      
-      <guid>/home/posts/</guid>
+      <link>/home/demo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/home/demo/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Contact</title>
-      <link>/home/contact/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +1000</pubDate>
-      
-      <guid>/home/contact/</guid>
+      <title>Biography</title>
+      <link>/home/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/home/about/</guid>
       <description></description>
     </item>
     

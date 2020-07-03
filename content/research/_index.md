@@ -1,4 +1,4 @@
-+++ 
++++
 title = "Research"
 date = 2017-01-01T00:00:00
 
@@ -24,7 +24,7 @@ I have several projects related to my research which might be suitable for an ho
 
 ## Works in progress
 
-  * Success, Failure, and Information: How Households Respond to Financial Rewards for Energy Conservatoin [Paper.](papers/Fraser_BCH.pdf) [Appendix.](papers/Fraser_BCHAppendix.pdf) 
+  * Success, Failure, and Information: How Households Respond to Financial Rewards for Energy Conservation [Paper.](papers/Fraser_BCH.pdf) [Appendix.](papers/Fraser_BCHAppendix.pdf) 
   * Complements or Substitutes? The Importance of Mode Choice In International Trade.
   * Trade-offs in investment carbon footprints.
 

@@ -10,8 +10,8 @@ output:
 editor_options: 
   chunk_output_type: inline
 
-date: 2018-12-30T00:00:00
-lastmod: 2019-01-09T00:00:00
+date: 2018-12-30
+lastmod: 2019-01-09
 
 slug: "EmissionSources"
 
@@ -57,7 +57,7 @@ CDN_IPCC_Data <- read_excel("Data_AUCDN_GHGBreakdown/2018NIR_IPCC_Tables_CA_1990
 colnames(CDN_IPCC_Data)[1] <- "CDN_Cat1"
 colnames(CDN_IPCC_Data)[2] <- "CDN_Cat2"
 colnames(CDN_IPCC_Data)[3] <- "CDN_Cat3"
-CDN_IPCC_Data <- select(CDN_IPCC_Data,-X__3,-X__4)
+CDN_IPCC_Data <- select(CDN_IPCC_Data,-"...4",-"...5")
 
 #Merge in IPCC definitions
 CDN_IPCC_Data <- merge(CDN_IPCC_Data,CDN_IPCC_def,by=c("CDN_Cat1","CDN_Cat2","CDN_Cat3"),all=FALSE)
@@ -117,8 +117,8 @@ for (YearName in c(1990:2016)) {
 }
 
 colnames(AU_total)[2] <- "GHGs"
-AU_total <- rename(AU_total,"year"="V3")
-AU_total <- rename(AU_total,"ColumnID"="V4")
+AU_total <- rename(AU_total,"year"="...3")
+AU_total <- rename(AU_total,"ColumnID"="...4")
 
 AU_total$GHGs[AU_total$GHGs=="Data is not available"] <- NA
 AU_total$GHGs[AU_total$GHGs=="Data is confidential"] <- NA
@@ -179,7 +179,7 @@ Here's Australia's and Canada's emissions since 1990. The importance of energy e
 Data for Canada comes from the [2018 National Inventory Report](http://data.ec.gc.ca/data/substances/monitor/national-and-provincial-territorial-greenhouse-gas-emission-tables/), and for Australia from the [National Greenhouse Gas Inventory via AGEIS](http://ageis.climatechange.gov.au/NGGI.aspx). 
 
 
-```{r,include=TRUE}
+```{r,include=TRUE,econ=FALSE}
 # Canada and AU 5 categories of emissions
 IPCC_Dataplot <- IPCC_Data %>% filter(GHGCat!="Total" & SubCat1=="Total") %>% select(GHGCat,year,GHGs,cty)
 
@@ -187,7 +187,7 @@ IPCC_Dataplot <- IPCC_Data %>% filter(GHGCat!="Total" & SubCat1=="Total") %>% se
 factororder <- filter(IPCC_Dataplot,IPCC_Dataplot$year==2016 & cty=="AU") %>% arrange(-GHGs)
 factororder <- as.character(factororder$GHGCat)
 
-ggplot(IPCC_Dataplot,aes(year,GHGs,fill=factor(IPCC_Dataplot$GHGCat,levels=factororder,ordered=TRUE))) + geom_area() + theme_bw() + scale_fill_brewer(palette="Spectral") + 
+ggplot(IPCC_Dataplot,aes(year,GHGs,fill=factor(GHGCat,levels=factororder,ordered=TRUE))) + geom_area() + theme_bw() + scale_fill_brewer(palette="Spectral") + 
   labs(title="Greenhouse gas emissions", subtitle=element_blank(), 
        y=expression('Emissions (Mt CO'[2]*'eq)'),
        x=element_blank(),
@@ -204,7 +204,7 @@ IPCC_Dataplot <- IPCC_Data %>% filter(GHGCat=="Energy" & SubCat1!="Total" & SubC
 factororder <- filter(IPCC_Dataplot,IPCC_Dataplot$year==2016 & cty=="AU") %>% arrange(-GHGs)
 factororder <- as.character(factororder$SubCat1)
 
-ggplot(IPCC_Dataplot,aes(year,GHGs,fill=factor(IPCC_Dataplot$SubCat1,levels=factororder,ordered=TRUE))) + geom_area() + theme_bw() + scale_fill_brewer(palette="Spectral") + 
+ggplot(IPCC_Dataplot,aes(year,GHGs,fill=factor(SubCat1,levels=factororder,ordered=TRUE))) + geom_area() + theme_bw() + scale_fill_brewer(palette="Spectral") + 
   labs(title="1990-2016 greenhouse gas emissions", subtitle="Totals Within Energy Category", 
        y=expression('Emissions (MT CO'[2]*')'),
        x=element_blank(),
@@ -239,7 +239,7 @@ factorcolors <- append(c("#4EB265","#B178A6","#D6C1DE"),append(FF_colors,transpo
 #assign names from factororder to factorcolors
 names(factorcolors) <- c(factororder[9],factororder[3],factororder[7],factororder[1],factororder[4],factororder[5],factororder[6],factororder[11],factororder[2],factororder[8],factororder[10],factororder[12],factororder[13])
 
-ggplot(IPCC_Dataplot,aes(year,GHGs,fill=factor(IPCC_Dataplot$Convenient_Name,levels=factororder,ordered=TRUE))) + geom_area() + theme_bw() + scale_fill_manual(values=factorcolors) + 
+ggplot(IPCC_Dataplot,aes(year,GHGs,fill=factor(Convenient_Name,levels=factororder,ordered=TRUE))) + geom_area() + theme_bw() + scale_fill_manual(values=factorcolors) + 
   labs(title="Greenhouse gas emissions", subtitle="Within Energy emissions", 
        y=expression('Emissions (MT CO'[2]*'eq)'),
        x=element_blank(),
@@ -265,7 +265,7 @@ for (ProvName in ProvinceList) {
   colnames(temp)[2] <- "CDN_Cat2"
   colnames(temp)[3] <- "CDN_Cat3"
   #format temp data for rbind
-  temp <- temp %>% select(-X__3,-X__4) %>% mutate(region=ProvName)
+  temp <- temp %>% select(-"...4",-"...5") %>% mutate(region=ProvName)
   temp <- filter(temp,!is.na(temp$"2016"))
   CDNProvGHGs <- rbind(CDNProvGHGs,temp)  
 }  
@@ -459,7 +459,7 @@ CDN_region_plot <- region_IPCC_Data %>% filter(cty=="CDN") %>% select(-IPCC_Sect
 CDN_region_plot$region = factor(CDN_region_plot$region, levels=c('BC','AB','SK','MB','ON','QC','NB','PE','NS','NL'))
 CDN_region_plot <- CDN_region_plot[with(CDN_region_plot,order(region,Convenient_Name,year)),]
 
-ggplot(CDN_region_plot,aes(year,GHGs,fill=factor(CDN_region_plot$Convenient_Name,levels=factororder,ordered=TRUE))) + 
+ggplot(CDN_region_plot,aes(year,GHGs,fill=factor(Convenient_Name,levels=factororder,ordered=TRUE))) + 
   geom_area() + theme_bw() + facet_grid(cols=vars(region)) +
   scale_x_continuous(breaks=seq(1990,2010,20)) + 
   scale_fill_brewer(palette="Spectral") + 
@@ -483,7 +483,7 @@ factororder <- as.character(factororder$Convenient_Name)
 AU_region_plot$region = factor(AU_region_plot$region, levels=c("NSW","QT","VIC","SA","WA","NT","TAS"))
 AU_region_plot <- AU_region_plot[with(AU_region_plot,order(region,Convenient_Name,year)),]
 
-ggplot(AU_region_plot,aes(year,GHGs,fill=factor(AU_region_plot$Convenient_Name,levels=factororder,ordered=TRUE))) + 
+ggplot(AU_region_plot,aes(year,GHGs,fill=factor(Convenient_Name,levels=factororder,ordered=TRUE))) + 
   geom_area() + theme_bw() + facet_grid(cols=vars(region)) + scale_fill_brewer(palette="Spectral") + 
   scale_x_continuous(breaks=seq(1990,2010,10)) + 
   labs(title="Australian Greenhouse Gas Emissions", subtitle="Excluding LULUCF", 

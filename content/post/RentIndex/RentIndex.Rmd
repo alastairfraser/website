@@ -10,8 +10,8 @@ output:
 editor_options: 
   chunk_output_type: inline
 
-date: 2020-07-03T00:00:00
-lastmod: 2020-07-03T00:00:00
+date: 2020-07-03
+lastmod: 2020-07-03
 
 slug: "SydneyCovid19Rent"
 

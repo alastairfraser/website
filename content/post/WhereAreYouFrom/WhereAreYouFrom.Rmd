@@ -10,8 +10,8 @@ output:
 editor_options: 
   chunk_output_type: inline
 
-date: 2019-01-14T00:00:00
-lastmod: 2019-01-14T00:00:00
+date: 2019-01-14
+lastmod: 2019-01-14
 
 slug: "whereareyoufrom"
 
