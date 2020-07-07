@@ -48,7 +48,6 @@
 &lt;p&gt;One of the things that jumped out at me when I arrived in Australia was, compared to Canada, how European it feels. The coffee, the more rounded edges on cars, the cafe’s with seating on the street, tea, trains. Based on my colleagues at work and people I meet here, Sydney also appears to have more people recently arrived from Europe. Vancouver feels relatively U.S. and Asia focused. So I decided to take a peek at some data.&lt;/p&gt;
 &lt;p&gt;Fortunately, Australia provides a handy summary &lt;a href=&#34;http://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/3105.0.65.0012014?OpenDocument&#34;&gt;(data product 3105.0.65.001)&lt;/a&gt; of Country of Birth of the population.&lt;/p&gt;
 &lt;p&gt;Here’s what the 30 largest country of birth shares (ranked as of 2011) look like. You can think of this as showing how likely it was that, in a given year, a random person you meet on the Australian street would be from the given country.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;## `summarise()` ungrouping output (override with `.groups` argument)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/WhereAreYouFrom/WhereAreYouFrom_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;What’s striking is the change around 1950, as Australia embarked on a large &lt;a href=&#34;https://en.wikipedia.org/wiki/Post-war_immigration_to_Australia&#34;&gt;post-war increase in immigration.&lt;/a&gt; Before that, relatively low immigration led to a rising share of people in Australia having been born there.&lt;/p&gt;
 &lt;p&gt;An alternative way to visualize the contributions from different countries is to plot country of birth as a share of those born abroad.&lt;/p&gt;
@@ -83,7 +82,6 @@
 &lt;div id=&#34;provincial-state-emissions&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Provincial &amp;amp; State emissions&lt;/h4&gt;
 &lt;p&gt;Emission sources differ substantially across Australia and Canada. Below, I plot all emissions excluding LULUCF by province/state, emission category, and year. I’ve separated &lt;em&gt;Energy&lt;/em&gt; into electricity, transport, fossil fuel extraction activities, buildings, and manufacturing sources. For Canada, Alberta jumps out for both its high emissions and large share from the oil and gas industry. The importance of hydro power to BC and Quebec is clear in the lack of emissions from electricity generation. Emissions across Australian states are relatively uniform compared to Canada, though with South Australia and Western Australia having a smaller share from electricity generation.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;## `summarise()` ungrouping output (override with `.groups` argument)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/Emission_sources/Emission_Sources_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/post/Emission_sources/Emission_Sources_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;

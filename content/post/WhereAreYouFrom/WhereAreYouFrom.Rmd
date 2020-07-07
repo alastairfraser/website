@@ -248,11 +248,13 @@ temp <- aggregate(immig_share~CensusYear,data=subset(AUCensusData,!(MasterCountr
 #aggregate across regions
 
 #what countries are large in 2011 with "Undefined"
-AUCensusData %>% filter(MasterCountry=="Undefined" & CensusYear==2011) %>% group_by(CensusCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+AUCensusData %>% filter(MasterCountry=="Undefined" & CensusYear==2011) %>% group_by(CensusCountry) %>% summarise(sum_ppl=sum(ppl),.groups='drop_last') %>% arrange(-sum_ppl)
 #can see no single country jumps out. 
 
+
+
 #check Undefined over all years
-AUCensusData %>% filter(MasterCountry=="Undefined") %>% group_by(CensusCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+AUCensusData %>% filter(MasterCountry=="Undefined") %>% group_by(CensusCountry) %>% summarise(sum_ppl=sum(ppl),.groups='drop_last') %>% arrange(-sum_ppl)
 
 ```
 
@@ -261,7 +263,7 @@ AUCensusData %>% filter(MasterCountry=="Undefined") %>% group_by(CensusCountry) 
 #ctry_list <- c("New Zealand","China","England","Scotland","Canada","Australia","Hong Kong","Italy","Germany","France","Korea","USA","Other","Vietnam","Philippines","South Africa","Poland","Wales")
 
 #choose the X (eg, 30) largest countries by immigration share.
-ctry_list <- AUCensusData %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+ctry_list <- AUCensusData %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl),.groups='drop_last') %>% arrange(-sum_ppl)
 ctry_list <- ctry_list[-1,]
 ctry_list <- ctry_list$MasterCountry[1:31] #top X countries of immigrants
 
@@ -277,7 +279,7 @@ AUCensusData_plot$plot_ctry[is.na(AUCensusData_plot$plot_ctry)] <- "Other"
 AUCensusData_plot$plot_ctry[AUCensusData_plot$plot_ctry=="Undefined"] <- "Other"
 
 #what countries have the largest share of immigrants but are within plot_ctry=="Other", i.e. are outside the top X countries?
-AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl),.groups='drop_last') %>% arrange(-sum_ppl)
 #Undefined is a *large* share... why? What are these people? 
 
 #View(AUCensusData_plot %>% filter(plot_ctry=="Other") %>% group_by(MasterCountry) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl))
@@ -304,7 +306,7 @@ Here's what the 30 largest country of birth shares (ranked as of 2011) look like
 
 ```{r,include=TRUE}
 #plot the X largest countries, ordered by their current share. Use country as a factor. 
-factororder <- AUCensusData_plot %>% filter(year==2011) %>% group_by(country) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
+factororder <- AUCensusData_plot %>% filter(year==2011) %>% group_by(country) %>% summarise(sum_ppl=sum(ppl),.groups='drop_last') %>% arrange(-sum_ppl)
 
 #factororder <- AUCensusData_plot %>% group_by(country) %>% summarise(sum_ppl=sum(ppl)) %>% arrange(-sum_ppl)
 factororder <- factororder$country[-1]

@@ -306,7 +306,7 @@ CDNProvGHGs <- aggregate(GHGs~.,data=CDNProvGHGs,FUN=sum)
 
 #verify totals add close to total within each region-year? 
 temp <- subset(CDNProvGHGs,CDNProvGHGs$IPCC_Sector=="Total")
-tempsum <- subset(CDNProvGHGs,CDNProvGHGs$IPCC_Sector!="Total") %>% select(-cty) %>% group_by(region,year) %>% summarise(sectorsum=sum(GHGs))
+tempsum <- subset(CDNProvGHGs,CDNProvGHGs$IPCC_Sector!="Total") %>% select(-cty) %>% group_by(region,year) %>% summarise(sectorsum=sum(GHGs),.groups='drop_last')
 
 ggplot() + theme_bw() + facet_grid(cols=vars(region)) +
   geom_line(data=temp,aes(year,GHGs),color='red',size=5) +
@@ -412,7 +412,7 @@ AUStateGHGs <- aggregate(GHGs~.,data=AUStateGHGs,FUN=sum)
 
 #verify that total is close?
 temp1 <- subset(AUStateGHGs,AUStateGHGs$IPCC_Sector=="Total")
-temp2 <- subset(AUStateGHGs,AUStateGHGs$IPCC_Sector!="Total") %>% select(-cty) %>% group_by(region,year) %>% summarise(sectorsum=sum(GHGs))
+temp2 <- subset(AUStateGHGs,AUStateGHGs$IPCC_Sector!="Total") %>% select(-cty) %>% group_by(region,year) %>% summarise(sectorsum=sum(GHGs),.groups='drop_last')
 
 ggplot() + theme_bw() + facet_grid(cols=vars(region)) +
   geom_line(data=temp1,aes(year,GHGs),color='red',size=5) +
@@ -450,7 +450,7 @@ region_IPCC_Data <- region_IPCC_Data[with(region_IPCC_Data,order(cty,region,Conv
 #plot using facets, by sector? Plot separately for Canada and AU, use common ordering based on total emissions
 #try sorting by totals across both countries?
 
-temp <- subset(region_IPCC_Data,select=c(GHGs,Convenient_Name)) %>% group_by(Convenient_Name) %>% summarise(sectorsum=sum(GHGs)) %>% arrange(-sectorsum)
+temp <- subset(region_IPCC_Data,select=c(GHGs,Convenient_Name)) %>% group_by(Convenient_Name) %>% summarise(sectorsum=sum(GHGs),.groups='drop_last') %>% arrange(-sectorsum)
 factororder <- as.character(temp$Convenient_Name)
 
 #start with Canada
