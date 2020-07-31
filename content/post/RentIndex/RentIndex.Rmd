@@ -11,7 +11,7 @@ editor_options:
   chunk_output_type: inline
 
 date: 2020-07-03
-lastmod: 2020-07-03
+lastmod: 2020-07-31
 
 slug: "SydneyCovid19Rent"
 
@@ -68,6 +68,9 @@ rentdata <- rbind(rentdata,tempdata)
 tempdata <- read_xlsx("RentData/Rental-Bond-Lodgements-for-May-2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
 tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
 rentdata <- rbind(rentdata,tempdata)
+tempdata <- read_xlsx("RentData/RentalBond_Lodgements_June_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+rentdata <- rbind(rentdata,tempdata)
 
 rm(tempdata)
 rentdata <- rentdata %>% rename(Type="Dwelling Type",Rent="Weekly Rent")
@@ -115,7 +118,9 @@ rent5kmUSyd <- rent5kmUSyd %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown
 rent10kmCBD <- rent10kmCBD %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown" | Type=="Other"))
 
 #expand with full set of dates
-newdates <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 1915)) %>% filter(date<as.Date("2020-06-01"))
+newdates <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 1915)) %>% filter(date<as.Date("2020-07-01"))
+
+test <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 2500)) %>% filter(date<as.Date("2020-07-01"))
 
 rentallSyd <- left_join(newdates,rentallSyd,by="date")
 rentallSyd <- complete(rentallSyd,date,Type,Bedrooms) 
