@@ -11,7 +11,7 @@ editor_options:
   chunk_output_type: inline
 
 date: 2020-07-03
-lastmod: 2020-07-31
+lastmod: 2020-10-05
 
 slug: "SydneyCovid19Rent"
 
@@ -53,24 +53,13 @@ tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
 rentdata <- rbind(rentdata,tempdata)
 
 #montly data
-tempdata <- read_xlsx("RentData/RentalBond_Lodgements_January_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
-tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
-rentdata <- rbind(rentdata,tempdata)
-tempdata <- read_xlsx("RentData/RentalBond_Lodgements_February_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
-tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
-rentdata <- rbind(rentdata,tempdata)
-tempdata <- read_xlsx("RentData/Rental-bond-lodgements-for-March-2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
-tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
-rentdata <- rbind(rentdata,tempdata)
-tempdata <- read_xlsx("RentData/RentalBond_Lodgements_April_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
-tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
-rentdata <- rbind(rentdata,tempdata)
-tempdata <- read_xlsx("RentData/Rental-Bond-Lodgements-for-May-2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
-tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
-rentdata <- rbind(rentdata,tempdata)
-tempdata <- read_xlsx("RentData/RentalBond_Lodgements_June_2020.xlsx",skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
-tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
-rentdata <- rbind(rentdata,tempdata)
+#loop over date names
+months <- c("January","February","March","April","May","June","July","August")
+for (month in months) {
+  tempdata <- read_xlsx(paste0("RentData/RentalBond_Lodgements_",month,"_2020.xlsx"),skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+  tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+  rentdata <- rbind(rentdata,tempdata)
+}
 
 rm(tempdata)
 rentdata <- rentdata %>% rename(Type="Dwelling Type",Rent="Weekly Rent")
@@ -118,7 +107,7 @@ rent5kmUSyd <- rent5kmUSyd %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown
 rent10kmCBD <- rent10kmCBD %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown" | Type=="Other"))
 
 #expand with full set of dates
-newdates <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 1915)) %>% filter(date<as.Date("2020-07-01"))
+newdates <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 1915)) %>% filter(date<as.Date("2020-09-01"))
 
 test <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 2500)) %>% filter(date<as.Date("2020-07-01"))
 
