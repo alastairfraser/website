@@ -405,3 +405,4 @@ ggplot(subset(plotdata,group=="All" & Type=="House" & (Bedrooms %in% c(3,4))),ae
 
 ```
 
+ 
