@@ -11,7 +11,7 @@ editor_options:
   chunk_output_type: inline
 
 date: 2020-07-03
-lastmod: 2021-01-17
+lastmod: 2021-03-17
 
 slug: "SydneyCovid19Rent"
 
@@ -52,11 +52,19 @@ tempdata <- read_xlsx("RentData/RentalBond_Lodgements_Year_2019.xlsx",skip=1,col
 tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
 rentdata <- rbind(rentdata,tempdata)
 
-#montly data
+#montly data for 2020
 #loop over date names
 months <- c("January","February","March","April","May","June","July","August","September","October","November","December")
 for (month in months) {
   tempdata <- read_xlsx(paste0("RentData/RentalBond_Lodgements_",month,"_2020.xlsx"),skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
+  tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
+  rentdata <- rbind(rentdata,tempdata)
+}
+
+#montly data for 2021
+months <- c("January","February")
+for (month in months) {
+  tempdata <- read_xlsx(paste0("RentData/RentalBond_Lodgements_",month,"_2021.xlsx"),skip=1,col_names=TRUE) %>% rename(date="Lodgement Date")
   tempdata$date <- as.Date(tempdata$date, origin="1899-12-30")
   rentdata <- rbind(rentdata,tempdata)
 }
@@ -107,7 +115,7 @@ rent5kmUSyd <- rent5kmUSyd %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown
 rent10kmCBD <- rent10kmCBD %>% filter(Bedrooms!="U") %>% filter(!(Type=="Unknown" | Type=="Other"))
 
 #expand with full set of dates
-newdates <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 1915)) %>% filter(date<as.Date("2021-01-01"))
+newdates <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 1915)) %>% filter(date<as.Date("2021-03-01"))
 
 #test <- tibble(date=seq(as.Date("2016-01-01"), by = "day", length.out = 2500)) %>% filter(date<as.Date("2020-07-01"))
 
@@ -162,9 +170,12 @@ numunits <- numunits[order(numunits$date,numunits$Type),]
 plotdata <- numunits %>% group_by(group,Type) %>% arrange(date) %>% mutate(ma7=rollapply(n_datetype,7,mean,align='right',fill=NA))
 plotdata <- plotdata[order(plotdata$date,plotdata$Type,plotdata$group),]
 
-plotdata <- plotdata %>% filter((date < as.Date("2021-01-01")) & (date >= as.Date("2019-01-01"))) %>% mutate(year=ifelse(date < as.Date("2020-01-01"),"2019","2020")) 
-#shift 2019 dates forward by a year so they can be plotted together
+plotdata <- plotdata %>% filter((date < as.Date("2021-12-01")) & (date >= as.Date("2019-01-01"))) %>% mutate(year=year(date))
+  
+#shift 2019 dates forward by a year so they can be plotted together, and shift 2021 dates back to 2020 dates
 plotdata$date[plotdata$date < as.Date("2020-01-01")] <- plotdata$date[plotdata$date < as.Date("2020-01-01")] + dyears(1)
+plotdata$date[plotdata$date >= as.Date("2021-01-01")] <- plotdata$date[plotdata$date >= as.Date("2021-01-01")] - dyears(1)
+
 plotdata$year <- as.factor(plotdata$year)
 
 ```
@@ -192,7 +203,7 @@ ggplot(subset(plotdata,group=="All"),aes(x=date,y=ma7,color=year)) + geom_line(s
     legend.margin=margin(0,0,0,0),
     legend.box.margin=margin(-10,0,0,0)
     ) + 
-  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2", "2021" = "darkorchid4")) + 
   labs(title="Number of new rental leases signed in Greater Sydney")
 
 ```
@@ -217,7 +228,7 @@ ggplot(subset(plotdata,group=="10kmCBD"),aes(x=date,y=ma7,color=year)) + geom_li
     legend.margin=margin(0,0,0,0),
     legend.box.margin=margin(-10,0,0,0)
     ) + 
-  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2", "2021" = "darkorchid4")) + 
   labs(title="Number of new rental leases signed within 10km of the CBD")
 
 
@@ -242,7 +253,7 @@ ggplot(subset(plotdata,group=="5kmUSyd"),aes(x=date,y=ma7,color=year)) + geom_li
     legend.margin=margin(0,0,0,0),
     legend.box.margin=margin(-10,0,0,0)
     ) + 
-  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2", "2021" = "darkorchid4")) + 
   labs(title="Number of new rental leases signed within 5km of USyd", subtitle="7 day moving average")
 
 
@@ -282,10 +293,15 @@ To look at average rents I split up housing into the largest categories, one and
 Rents for apartments in greater Sydney have fallen by about 10% for 1 bedroom and 6.5% for 2 bedrooms.
 
 ```{r,include=TRUE}
-#Plot 2019 vs 2020 for Apartments
-plotdata <- rentdata %>% filter((date < as.Date("2021-01-01")) & (date >= as.Date("2019-01-01"))) %>% mutate(year=ifelse(date < as.Date("2020-01-01"),"2019","2020"))
+#Plot 2019 vs 2020 vs 2021 for Apartments
+#plotdata <- rentdata %>% filter((date < as.Date("2021-01-01")) & (date >= as.Date("2019-01-01"))) %>% mutate(year=ifelse(date < as.Date("2020-01-01"),"2019","2020"))
+
+plotdata <- rentdata %>% filter((date < as.Date("2021-12-01")) & (date >= as.Date("2019-01-01"))) %>% mutate(year=year(date))
+
+
 #shift 2019 dates forward by a year so they can be plotted together
 plotdata$date[plotdata$date < as.Date("2020-01-01")] <- plotdata$date[plotdata$date < as.Date("2020-01-01")] + dyears(1)
+plotdata$date[plotdata$date >= as.Date("2021-01-01")] <- plotdata$date[plotdata$date >= as.Date("2021-01-01")] - dyears(1)
 
 plotdata$year <- as.factor(plotdata$year)
 plotdata$Bedrooms <- as.factor(plotdata$Bedrooms)
@@ -308,7 +324,7 @@ ggplot(subset(plotdata,group=="All" & Type=="Apartment" & (Bedrooms %in% c(1,2))
     plot.caption = element_text(size = 8),
     legend.margin=margin(0,0,0,0),
     legend.box.margin=margin(-10,0,0,0)) + 
-  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2", "2021" = "darkorchid4")) +
   labs(title="Average rent for Apartments",subtitle="New leases in greater Sydney")
 
 ```
@@ -331,7 +347,7 @@ ggplot(subset(plotdata,group=="5kmUSyd" & Type=="Apartment" & (Bedrooms %in% c(1
     plot.caption = element_text(size = 8),
     legend.margin=margin(0,0,0,0),
     legend.box.margin=margin(-10,0,0,0)) + 
-  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2", "2021" = "darkorchid4")) +
   labs(title="Average rent for Apartments",subtitle="New leases within 5 km of the University of Sydney")
 
 
@@ -356,12 +372,12 @@ ggplot(subset(plotdata,group=="All" & Type=="House" & (Bedrooms %in% c(3,4))),ae
     plot.caption = element_text(size = 8),
     legend.margin=margin(0,0,0,0),
     legend.box.margin=margin(-10,0,0,0)) + 
-  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2")) + 
+  scale_color_manual(values = c("2019" = "grey50", "2020" = "red2", "2021" = "darkorchid4")) + 
   labs(title="Average rent for Houses",subtitle="New leases in greater Sydney")
 
 ```
 
-As the previous comparisons were all of 2020 vs 2019, I've plotted the full available time series of rents below.
+As the previous comparisons were all of 2021 vs 2020 vs 2019, I've plotted the full available time series of rents below.
 
 ```{r,include=TRUE}
 #Time series of rents over many years
