@@ -39,52 +39,6 @@
     </item>
     
     <item>
-      <title>Changes in Sydney rent during covid 19</title>
-      <link>/post/rentindex/sydneycovid19rent/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/rentindex/sydneycovid19rent/</guid>
-      <description>&lt;p&gt;Among the many things (ok, pretty much everything) that covid19 is impacting is the cost of rent in Sydney. The NSW government 
-&lt;a href=&#34;https://www.fairtrading.nsw.gov.au/about-fair-trading/data-and-statistics/rental-bond-data&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;releases the rent data monthly&lt;/a&gt; so I thought I&amp;rsquo;d take a look. This data comes from the rental bonds that must be submitted when new leases are signed, and show weekly rents. So a warning to you up-toppers, $500 weekly rent is $2166 per month.&lt;/p&gt;
-&lt;p&gt;The NSW Fair Trading data is for recent rental bond lodgements, so the number of new bonds should indicate the number of new leases signed. I&amp;rsquo;m not sure if a tenant resigning their lease at a different rent will appear in the rental bond data, or whether the previous bond is kept by the government as-is without any update to the data.&lt;/p&gt;
-&lt;p&gt;Here&amp;rsquo;s the changes in bonds lodged across greater Sydney. I was expecting a fall in bonds signed compared to last year as people tried not to move, but instead theres an increase — though as mentioned this maythe re-signing at lower rents.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;To look at average rents I split up housing into the largest categories, one and two bedroom apartments and three and four bedroom houses, and take a 7 day moving average.&lt;/p&gt;
-&lt;p&gt;Rents for apartments in greater Sydney have fallen by about 10% for 1 bedroom and 6.5% for 2 bedrooms.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;The fall in rent is slightly larger if I look within 5km of the University of Sydney, which includes the central business district and a lot of apartment stock.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;In contrast, rent for single-family dwellings (houses) hasn&amp;rsquo;t fallen at all. This suggests the impacts of the covid19 financial crisis are, unsurprisingly, being felt very differently depending on the type of housing you can afford.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;As the previous comparisons were for pandemic years and afterwards, I&amp;rsquo;ve plotted the full available time series of rents below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Changes in Sydney rent during covid 19</title>
-      <link>/post/rentindex/sydneycovid19rent/</link>
-      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>/post/rentindex/sydneycovid19rent/</guid>
-      <description>&lt;p&gt;Among the many things (ok, pretty much everything) that covid19 is impacting is the cost of rent in Sydney. The NSW government 
-&lt;a href=&#34;https://www.fairtrading.nsw.gov.au/about-fair-trading/data-and-statistics/rental-bond-data&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;releases the rent data monthly&lt;/a&gt; so I thought I&amp;rsquo;d take a look. This data comes from the rental bonds that must be submitted when new leases are signed, and show weekly rents. So a warning to you up-toppers, $500 weekly rent is $2166 per month.&lt;/p&gt;
-&lt;p&gt;The NSW Fair Trading data is for recent rental bond lodgements, so the number of new bonds should indicate the number of new leases signed. I&amp;rsquo;m not sure if a tenant resigning their lease at a different rent will appear in the rental bond data, or whether the previous bond is kept by the government as-is without any update to the data.&lt;/p&gt;
-&lt;p&gt;Here&amp;rsquo;s the changes in bonds lodged across greater Sydney. I was expecting a fall in bonds signed compared to last year as people tried not to move, but instead theres an increase — though as mentioned this maythe re-signing at lower rents.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;To look at average rents I split up housing into the largest categories, one and two bedroom apartments and three and four bedroom houses, and take a 7 day moving average.&lt;/p&gt;
-&lt;p&gt;Rents for apartments in greater Sydney have fallen by about 10% for 1 bedroom and 6.5% for 2 bedrooms.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;The fall in rent is slightly larger if I look within 5km of the University of Sydney, which includes the central business district and a lot of apartment stock.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;In contrast, rent for single-family dwellings (houses) hasn&amp;rsquo;t fallen at all. This suggests the impacts of the covid19 financial crisis are, unsurprisingly, being felt very differently depending on the type of housing you can afford.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;As the previous comparisons were for pandemic years and afterwards, I&amp;rsquo;ve plotted the full available time series of rents below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;RentIndex_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Where are you from?</title>
       <link>/post/whereareyoufrom/whereareyoufrom/</link>
       <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
